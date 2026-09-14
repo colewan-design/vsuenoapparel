@@ -6,11 +6,36 @@
   lang="{{ request.locale.iso_code }}"
 >
   <head>
+    {%- comment -%}
+      Favicon. A favicon set in Theme settings wins, so the merchant can swap it
+      without a code change. Otherwise the icons bundled in assets/ are used: the
+      PNG is listed first so modern browsers take it, and the .ico carries the
+      legacy 16/24/32/48 sizes for everything older.
+    {%- endcomment -%}
     {%- if settings.favicon != blank -%}
       <link
         rel="icon"
         type="image/png"
         href="{{ settings.favicon | image_url: width: 32, height: 32 }}"
+      >
+      <link
+        rel="apple-touch-icon"
+        href="{{ settings.favicon | image_url: width: 180, height: 180 }}"
+      >
+    {%- else -%}
+      <link
+        rel="icon"
+        type="image/png"
+        sizes="32x32"
+        href="{{ 'favicon-32x32.png' | asset_url }}"
+      >
+      <link
+        rel="icon"
+        href="{{ 'favicon.ico' | asset_url }}"
+      >
+      <link
+        rel="apple-touch-icon"
+        href="{{ 'apple-touch-icon.png' | asset_url }}"
       >
     {%- endif -%}
 
