@@ -226,6 +226,8 @@
     endif
   -%}
 
+  {%- render 'cart-shipping-fee' -%}
+
   <div class="cart-totals__container{% if settings.show_installments %} cart-totals__container--has-installments{% endif %}">
     <span
       class="cart-totals__item cart-totals__total"
@@ -308,6 +310,24 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+  }
+
+  .cart-totals__shipping-fee {
+    /* The label wraps to several lines; keep the value pinned to the first one. */
+    align-items: start;
+    gap: var(--margin-md, 1rem);
+    margin-block-start: var(--margin-3xs, 0.25rem);
+  }
+
+  .cart-totals__shipping-fee-label {
+    font-weight: 600;
+  }
+
+  .cart-totals__shipping-fee-value {
+    flex-shrink: 0;
+    text-align: end;
+    text-wrap: balance;
+    color: var(--color-foreground-subdued);
   }
 
   .cart-totals__tax-note {

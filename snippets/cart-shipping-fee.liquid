@@ -1,0 +1,21 @@
+{%- doc -%}
+  Renders the shipping fee row in the cart totals.
+
+  The amount is deliberately not calculated here. Shopify applies whichever rate
+  the merchant configured under Settings > Shipping and delivery once the customer
+  enters an address at checkout, so this row says so up front rather than showing
+  a number the cart has no way to know yet.
+{%- enddoc -%}
+
+{%- if settings.show_cart_shipping_fee and settings.cart_shipping_fee_label != blank -%}
+  <div class="cart-totals__item cart-totals__shipping-fee">
+    <span class="cart-totals__shipping-fee-label cart-primary-typography">
+      {{- settings.cart_shipping_fee_label -}}
+    </span>
+    {%- if settings.cart_shipping_fee_value != blank -%}
+      <span class="cart-totals__shipping-fee-value cart-secondary-typography">
+        {{- settings.cart_shipping_fee_value -}}
+      </span>
+    {%- endif -%}
+  </div>
+{%- endif -%}

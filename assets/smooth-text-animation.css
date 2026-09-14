@@ -1,0 +1,98 @@
+/**
+ * Smooth text animation
+ *
+ * Masked, per-word reveal with a damped bounce settle. Applied to the product
+ * title on product pages by smooth-text-animation.js.
+ *
+ * The title is held invisible until the script claims it (by adding `.sta`), so
+ * the un-split text never paints. `sta-failsafe` reveals it anyway if the script
+ * never arrives, so a JS failure can't leave the page without a product title.
+ */
+
+[id*='ProductInformation-'] h1:not(.sta) {
+  opacity: 0;
+  animation: sta-failsafe 1ms linear 600ms forwards;
+}
+
+@keyframes sta-failsafe {
+  to {
+    opacity: 1;
+  }
+}
+
+.sta {
+  /* Tune the feel from here. */
+  --sta-duration: 900ms;
+  --sta-stagger: 70ms;
+
+  /* Headroom so the mask doesn't clip descenders or the overshoot. */
+  --sta-mask-space: 0.18em;
+}
+
+.sta__word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-block-end: var(--sta-mask-space);
+  margin-block-end: calc(var(--sta-mask-space) * -1);
+}
+
+.sta__word-inner {
+  display: inline-block;
+  transform: translateY(105%);
+  opacity: 0;
+}
+
+.sta--animate .sta__word-inner {
+  will-change: transform, opacity;
+  animation: sta-word-rise var(--sta-duration) cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(var(--sta-index, 0) * var(--sta-stagger));
+}
+
+/* Rise from behind the mask, overshoot, settle back — the bounce. */
+@keyframes sta-word-rise {
+  0% {
+    transform: translateY(105%);
+    opacity: 0;
+  }
+
+  40% {
+    opacity: 1;
+  }
+
+  60% {
+    transform: translateY(-14%);
+  }
+
+  78% {
+    transform: translateY(5%);
+  }
+
+  90% {
+    transform: translateY(-2%);
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Animation finished — release the compositor layer. */
+.sta__word-inner--done {
+  will-change: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [id*='ProductInformation-'] h1:not(.sta) {
+    opacity: 1;
+    animation: none;
+  }
+
+  .sta__word-inner,
+  .sta--animate .sta__word-inner {
+    animation: none;
+    transform: none;
+    opacity: 1;
+  }
+}

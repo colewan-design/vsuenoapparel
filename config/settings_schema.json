@@ -1550,6 +1550,28 @@
       },
       {
         "type": "checkbox",
+        "id": "show_cart_shipping_fee",
+        "label": "Show shipping fee row",
+        "info": "Adds a shipping fee line to the cart. The rate itself is set under Settings > Shipping and delivery and is applied at checkout once the customer enters an address.",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "cart_shipping_fee_label",
+        "label": "Shipping fee label",
+        "default": "Shipping Fee — Automatically calculated by courier based on your address.",
+        "visible_if": "{{ settings.show_cart_shipping_fee == true }}"
+      },
+      {
+        "type": "text",
+        "id": "cart_shipping_fee_value",
+        "label": "Shipping fee placeholder",
+        "info": "Shown on the right of the row, in place of an amount.",
+        "default": "Enter shipping address",
+        "visible_if": "{{ settings.show_cart_shipping_fee == true }}"
+      },
+      {
+        "type": "checkbox",
         "id": "show_installments",
         "label": "t:settings.installments",
         "default": true

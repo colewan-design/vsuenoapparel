@@ -476,6 +476,48 @@
     --transparent-header-offset-boolean: 0; /* stylelint-disable-line declaration-property-value-disallowed-list */
   }
 
+  #header-component {
+    --page-content-width: 1440px;
+  }
+
+  @media screen and (min-width: 750px) {
+    #header-component .header__row--top .header__columns {
+      min-height: 78px;
+      padding-block: 0;
+    }
+
+    #header-component .header-menu .menu-list__link {
+      position: relative;
+      letter-spacing: 0.09em;
+    }
+
+    #header-component .header-menu .menu-list__link::after {
+      position: absolute;
+      inset: auto 50% -0.6rem;
+      width: 0;
+      height: 1px;
+      content: '';
+      background: #db8e9d;
+      transition: width 180ms ease, inset-inline-start 180ms ease;
+    }
+
+    #header-component .header-menu .menu-list__link:hover::after,
+    #header-component .header-menu .menu-list__link[aria-current='page']::after {
+      inset-inline-start: 0;
+      width: 100%;
+    }
+
+    #header-component .header__column--right {
+      gap: clamp(0.65rem, 1.5vw, 1.35rem);
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    #header-component .header__row--top .header__columns {
+      min-height: 60px;
+    }
+  }
+
   .header {
     /* Set header paddings based on height setting */
     --header-padding: var(--padding-sm);

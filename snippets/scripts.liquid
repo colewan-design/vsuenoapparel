@@ -271,6 +271,15 @@
     type="module"
     fetchpriority="low"
   ></script>
+  {%- comment -%}
+    Animates the product title on load. Loaded at default priority rather than
+    low: it drives an above-the-fold reveal, so a late arrival is visible as a
+    delay before the title appears.
+  {%- endcomment -%}
+  <script
+    src="{{ 'smooth-text-animation.js' | asset_url }}"
+    type="module"
+  ></script>
   <script type="module">
     import { RecentlyViewed } from '@theme/recently-viewed-products';
     RecentlyViewed.addProduct('{{ product.id }}');

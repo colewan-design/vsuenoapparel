@@ -1,0 +1,912 @@
+{% liquid
+  assign featured_collection = section.settings.collection | default: collections.all
+%}
+
+<div class="y2k-home">
+  <section class="y2k-hero" aria-labelledby="Y2kHeroHeading-{{ section.id }}">
+    {% if section.settings.hero_image != blank %}
+      {{
+        section.settings.hero_image
+        | image_url: width: 2400
+        | image_tag:
+          class: 'y2k-hero__image',
+          widths: '750, 1100, 1500, 2000, 2400',
+          sizes: '100vw',
+          fetchpriority: 'high',
+          loading: 'eager'
+      }}
+    {% else %}
+      <img
+        class="y2k-hero__image"
+        src="{{ 'y2k-editorial-hero.png' | asset_url }}"
+        width="2048"
+        height="728"
+        alt="Vintage Y2K clothing arranged as an editorial collage"
+        fetchpriority="high"
+      >
+    {% endif %}
+
+    <div class="y2k-hero__content">
+      {% if section.settings.hero_pretitle != blank %}
+        <p class="y2k-label y2k-hero__pretitle">{{ section.settings.hero_pretitle | escape }}</p>
+      {% endif %}
+      <h1 id="Y2kHeroHeading-{{ section.id }}">{{ section.settings.hero_heading | escape | newline_to_br }}</h1>
+      {% if section.settings.hero_text != blank %}
+        <p class="y2k-hero__text">{{ section.settings.hero_text | escape }}</p>
+      {% endif %}
+      {% if section.settings.hero_button_label != blank %}
+        <a class="y2k-button y2k-button--pink" href="{{ section.settings.hero_button_link }}">
+          <span>{{ section.settings.hero_button_label | escape }}</span>
+          <span aria-hidden="true">→</span>
+        </a>
+      {% endif %}
+    </div>
+  </section>
+
+  <section class="y2k-drop" aria-labelledby="Y2kDropHeading-{{ section.id }}">
+    <div class="y2k-container">
+      <header class="y2k-section-heading">
+        <div>
+          {% if section.settings.products_pretitle != blank %}
+            <p class="y2k-label">{{ section.settings.products_pretitle | escape }}</p>
+          {% endif %}
+          <h2 id="Y2kDropHeading-{{ section.id }}">{{ section.settings.products_heading | escape }}</h2>
+        </div>
+        {% if featured_collection != blank %}
+          <a class="y2k-text-link" href="{{ featured_collection.url }}">
+            <span>{{ section.settings.products_link_label | escape }}</span>
+            <span aria-hidden="true">→</span>
+          </a>
+        {% endif %}
+      </header>
+
+      <div class="y2k-products">
+        {% for product in featured_collection.products limit: 3 %}
+          <article class="y2k-product-card">
+            <a class="y2k-product-card__media" href="{{ product.url }}" aria-label="{{ product.title | escape }}">
+              {% if product.featured_image != blank %}
+                {{
+                  product.featured_image
+                  | image_url: width: 1100
+                  | image_tag:
+                    class: 'y2k-product-card__image',
+                    widths: '360, 540, 760, 900, 1100',
+                    sizes: '(min-width: 990px) 31vw, (min-width: 750px) 46vw, 88vw',
+                    loading: 'lazy'
+                }}
+              {% else %}
+                {{ 'product-apparel-1' | placeholder_svg_tag: 'y2k-product-card__image' }}
+              {% endif %}
+              {% unless product.available %}
+                <span class="y2k-product-card__badge">Sold out</span>
+              {% endunless %}
+              <span class="y2k-product-card__arrow" aria-hidden="true">↗</span>
+            </a>
+            <div class="y2k-product-card__meta">
+              <h3><a href="{{ product.url }}">{{ product.title | escape }}</a></h3>
+              <p>
+                {% if product.price_varies %}From {% endif %}{{ product.price | money }}
+              </p>
+            </div>
+          </article>
+        {% else %}
+          {% for index in (1..3) %}
+            <article class="y2k-product-card">
+              <div class="y2k-product-card__media">
+                {{ 'product-apparel-' | append: index | placeholder_svg_tag: 'y2k-product-card__image' }}
+              </div>
+              <div class="y2k-product-card__meta"><h3>Vintage find</h3><p>$0.00</p></div>
+            </article>
+          {% endfor %}
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="y2k-bale" aria-labelledby="Y2kBaleHeading-{{ section.id }}">
+    <div class="y2k-bale__copy">
+      <div class="y2k-bale__copy-inner">
+        {% if section.settings.bale_pretitle != blank %}
+          <p class="y2k-label">{{ section.settings.bale_pretitle | escape }}</p>
+        {% endif %}
+        <h2 id="Y2kBaleHeading-{{ section.id }}">{{ section.settings.bale_heading | escape | newline_to_br }}</h2>
+        {% if section.settings.bale_text != blank %}
+          <div class="y2k-bale__text rte">{{ section.settings.bale_text }}</div>
+        {% endif %}
+        {% if section.settings.bale_button_label != blank %}
+          <a class="y2k-button y2k-button--light" href="{{ section.settings.bale_button_link }}">
+            <span>{{ section.settings.bale_button_label | escape }}</span>
+            <span aria-hidden="true">→</span>
+          </a>
+        {% endif %}
+
+        <div class="y2k-bale__facts" aria-label="Bale highlights">
+          <span>Vintage<br>pieces</span>
+          <span>Real<br>brands</span>
+          <span>Limited<br>quantities</span>
+        </div>
+      </div>
+    </div>
+    <div class="y2k-bale__media">
+      {% if section.settings.bale_image != blank %}
+        {{
+          section.settings.bale_image
+          | image_url: width: 1800
+          | image_tag:
+            class: 'y2k-bale__image',
+            widths: '600, 900, 1200, 1500, 1800',
+            sizes: '(min-width: 750px) 50vw, 100vw',
+            loading: 'lazy'
+        }}
+      {% else %}
+        {{ 'collection-apparel-1' | placeholder_svg_tag: 'y2k-bale__image' }}
+      {% endif %}
+      <span class="y2k-bale__note" aria-hidden="true">Good style<br>lasts longer ♡</span>
+    </div>
+  </section>
+
+  {% if section.blocks.size > 0 %}
+    <section class="y2k-trust" aria-label="Why shop with us">
+      <div class="y2k-container y2k-trust__grid">
+        {% for block in section.blocks %}
+          <div class="y2k-trust__item" {{ block.shopify_attributes }}>
+            <span class="y2k-trust__icon" aria-hidden="true">
+              {% case block.settings.icon %}
+                {% when 'diamond' %}
+                  <svg viewBox="0 0 48 48"><path d="M8 17 15 8h18l7 9-16 23L8 17Z"/><path d="m8 17 16 23 16-23M15 8l9 32L33 8M8 17h32"/></svg>
+                {% when 'tag' %}
+                  <svg viewBox="0 0 48 48"><path d="M7 26 26 7h13v13L20 39 7 26Z"/><circle cx="33" cy="13" r="2.5"/></svg>
+                {% when 'globe' %}
+                  <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="18"/><path d="M6 24h36M24 6c6 5 9 11 9 18s-3 13-9 18c-6-5-9-11-9-18s3-13 9-18Z"/></svg>
+                {% else %}
+                  <svg viewBox="0 0 48 48"><path d="M24 40S7 31 7 18a9 9 0 0 1 17-4 9 9 0 0 1 17 4c0 13-17 22-17 22Z"/></svg>
+              {% endcase %}
+            </span>
+            <span>
+              <strong>{{ block.settings.heading | escape }}</strong>
+              <small>{{ block.settings.text | escape }}</small>
+            </span>
+          </div>
+        {% endfor %}
+      </div>
+    </section>
+  {% endif %}
+
+  <section class="y2k-newsletter" aria-labelledby="Y2kNewsletterHeading-{{ section.id }}">
+    <div class="y2k-container y2k-newsletter__inner">
+      <img
+        class="y2k-newsletter__heart"
+        src="{{ 'newsletter-heart-sparkles.png' | asset_url }}"
+        width="1774"
+        height="887"
+        loading="lazy"
+        alt=""
+        aria-hidden="true"
+      >
+      <div class="y2k-newsletter__copy">
+        <p class="y2k-label">{{ section.settings.newsletter_pretitle | escape }}</p>
+        <h2 id="Y2kNewsletterHeading-{{ section.id }}">{{ section.settings.newsletter_heading | escape }}</h2>
+        <p>{{ section.settings.newsletter_text | escape }}</p>
+      </div>
+      {% form 'customer', class: 'y2k-newsletter__form' %}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        <label class="visually-hidden" for="Y2kNewsletterEmail-{{ section.id }}">Email address</label>
+        <input
+          id="Y2kNewsletterEmail-{{ section.id }}"
+          type="email"
+          name="contact[email]"
+          value="{{ form.email }}"
+          placeholder="Email address"
+          autocorrect="off"
+          autocapitalize="off"
+          autocomplete="email"
+          required
+        >
+        <button type="submit">{{ section.settings.newsletter_button | escape }}</button>
+        {% if form.posted_successfully? %}
+          <p class="y2k-newsletter__message" tabindex="-1" autofocus>Thanks for joining us.</p>
+        {% elsif form.errors %}
+          <p class="y2k-newsletter__message">{{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}</p>
+        {% endif %}
+      {% endform %}
+      <img
+        class="y2k-newsletter__scribble"
+        src="{{ 'good-clothes-brighter-days.png' | asset_url }}"
+        width="1254"
+        height="1254"
+        loading="lazy"
+        alt=""
+        aria-hidden="true"
+      >
+    </div>
+  </section>
+</div>
+
+{% stylesheet %}
+  .y2k-home {
+    --y2k-brown: #6f4439;
+    --y2k-brown-dark: #3d2b27;
+    --y2k-cream: #f8f5f1;
+    --y2k-blush: #f2dfdf;
+    --y2k-pink: #db8e9d;
+    --y2k-line: rgba(61, 43, 39, 0.19);
+    --y2k-serif: var(--font-heading--family);
+    --y2k-sans: var(--font-accent--family);
+    color: var(--y2k-brown-dark);
+    background: var(--y2k-cream);
+  }
+
+  .y2k-container {
+    width: min(100% - clamp(2rem, 8vw, 8rem), 77rem);
+    margin-inline: auto;
+  }
+
+  .y2k-label {
+    margin: 0 0 0.55rem;
+    font-family: var(--y2k-sans);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.13em;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  .y2k-hero {
+    position: relative;
+    min-height: clamp(24rem, 35vw, 34rem);
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    isolation: isolate;
+    color: var(--y2k-cream);
+    background: var(--y2k-brown-dark);
+  }
+
+  .y2k-hero__image {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .y2k-hero::after {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    content: '';
+    pointer-events: none;
+    background: linear-gradient(90deg, rgba(43, 27, 22, 0.08), rgba(43, 27, 22, 0.14) 50%, rgba(43, 27, 22, 0.06));
+  }
+
+  .y2k-hero__content {
+    width: min(90%, 39rem);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3.5rem 1.5rem;
+    text-align: center;
+  }
+
+  .y2k-hero__pretitle {
+    margin-bottom: 1rem;
+  }
+
+  .y2k-hero h1 {
+    margin: 0;
+    color: inherit;
+    font-family: var(--y2k-serif);
+    font-size: clamp(2.75rem, 5.6vw, 5.5rem);
+    font-weight: 400;
+    letter-spacing: -0.045em;
+    line-height: 0.91;
+    text-wrap: balance;
+  }
+
+  .y2k-hero__text {
+    max-width: 33rem;
+    margin: 1.2rem 0 1.6rem;
+    font-family: var(--y2k-serif);
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    line-height: 1.4;
+    text-wrap: balance;
+  }
+
+  .y2k-button {
+    min-height: 3.2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 0.9rem 1.65rem;
+    border: 1px solid currentColor;
+    font-family: var(--y2k-sans);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.09em;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: transform 180ms ease, background-color 180ms ease, color 180ms ease;
+  }
+
+  .y2k-button:hover {
+    transform: translateY(-2px);
+  }
+
+  .y2k-button--pink {
+    color: var(--y2k-cream);
+    background: var(--y2k-pink);
+    border-color: #efbdc6;
+  }
+
+  .y2k-button--pink:hover {
+    color: var(--y2k-brown-dark);
+    background: var(--y2k-cream);
+  }
+
+  .y2k-drop {
+    padding-block: clamp(3rem, 6vw, 5rem);
+    background: var(--y2k-cream);
+  }
+
+  .y2k-section-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .y2k-section-heading h2,
+  .y2k-bale h2,
+  .y2k-newsletter h2 {
+    margin: 0;
+    font-family: var(--y2k-serif);
+    font-weight: 400;
+    letter-spacing: -0.045em;
+    line-height: 0.95;
+  }
+
+  .y2k-section-heading h2 {
+    font-size: clamp(2.5rem, 5vw, 4.75rem);
+  }
+
+  .y2k-text-link {
+    display: inline-flex;
+    gap: 0.7rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid currentColor;
+    color: inherit;
+    font-family: var(--y2k-sans);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .y2k-products {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1rem, 2vw, 1.75rem);
+  }
+
+  .y2k-product-card__media {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 4 / 5;
+    display: block;
+    color: var(--y2k-brown-dark);
+    background: #e8e1dc;
+  }
+
+  .y2k-product-card__image {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    transition: scale 650ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .y2k-product-card:hover .y2k-product-card__image {
+    scale: 1.025;
+  }
+
+  .y2k-product-card__badge {
+    position: absolute;
+    inset: 0.8rem auto auto 0.8rem;
+    padding: 0.38rem 0.62rem;
+    color: var(--y2k-brown-dark);
+    background: var(--y2k-cream);
+    font-family: var(--y2k-sans);
+    font-size: 0.62rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+  }
+
+  .y2k-product-card__arrow {
+    position: absolute;
+    inset: 0.75rem 0.75rem auto auto;
+    width: 2.3rem;
+    aspect-ratio: 1;
+    display: grid;
+    place-items: center;
+    color: var(--y2k-cream);
+    background: rgba(61, 43, 39, 0.7);
+    border-radius: 50%;
+    opacity: 0;
+    transform: translateY(0.35rem);
+    transition: opacity 180ms ease, transform 180ms ease;
+  }
+
+  .y2k-product-card:hover .y2k-product-card__arrow,
+  .y2k-product-card__media:focus-visible .y2k-product-card__arrow {
+    opacity: 1;
+    transform: none;
+  }
+
+  .y2k-product-card__meta {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 1rem;
+    padding-top: 0.85rem;
+  }
+
+  .y2k-product-card__meta h3,
+  .y2k-product-card__meta p {
+    margin: 0;
+  }
+
+  .y2k-product-card__meta h3 {
+    font-family: var(--y2k-serif);
+    font-size: clamp(1rem, 1.4vw, 1.25rem);
+    font-weight: 400;
+    line-height: 1.18;
+  }
+
+  .y2k-product-card__meta a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .y2k-product-card__meta p {
+    font-family: var(--y2k-sans);
+    font-size: 0.76rem;
+  }
+
+  .y2k-bale {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    color: var(--y2k-cream);
+    background: var(--y2k-brown);
+  }
+
+  .y2k-bale__copy {
+    min-height: clamp(31rem, 50vw, 43rem);
+    display: grid;
+    place-items: center;
+    padding: clamp(3rem, 7vw, 7rem);
+  }
+
+  .y2k-bale__copy-inner {
+    width: min(100%, 31rem);
+  }
+
+  .y2k-bale h2 {
+    max-width: 10ch;
+    font-size: clamp(3.4rem, 6vw, 6.8rem);
+  }
+
+  .y2k-bale__text {
+    max-width: 31rem;
+    margin-block: 1.25rem 1.75rem;
+    font-family: var(--y2k-serif);
+    font-size: clamp(1rem, 1.4vw, 1.2rem);
+    line-height: 1.45;
+  }
+
+  .y2k-button--light {
+    color: var(--y2k-brown-dark);
+    background: #f2ccd2;
+    border-color: #f2ccd2;
+  }
+
+  .y2k-button--light:hover {
+    color: var(--y2k-cream);
+    background: transparent;
+  }
+
+  .y2k-bale__facts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    margin-top: clamp(3rem, 7vw, 6rem);
+    font-family: var(--y2k-sans);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    line-height: 1.35;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .y2k-bale__facts span + span {
+    border-left: 1px solid rgba(248, 245, 241, 0.4);
+  }
+
+  .y2k-bale__media {
+    position: relative;
+    min-height: 31rem;
+    overflow: hidden;
+    background: #d4c5b8;
+  }
+
+  .y2k-bale__image {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+  }
+
+  .y2k-bale__note {
+    position: absolute;
+    inset: auto 1.5rem 1.5rem auto;
+    color: var(--y2k-pink);
+    font-family: cursive;
+    font-size: clamp(1.2rem, 2vw, 2rem);
+    line-height: 1;
+    rotate: -7deg;
+    text-align: center;
+  }
+
+  .y2k-trust {
+    border-bottom: 1px solid var(--y2k-line);
+    background: #fbf9f6;
+  }
+
+  .y2k-trust__grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .y2k-trust__item {
+    min-height: 7.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem;
+  }
+
+  .y2k-trust__item + .y2k-trust__item {
+    border-left: 1px solid var(--y2k-line);
+  }
+
+  .y2k-trust__icon {
+    width: 2.3rem;
+    flex: 0 0 2.3rem;
+  }
+
+  .y2k-trust__icon svg {
+    width: 100%;
+    display: block;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.5;
+  }
+
+  .y2k-trust__item strong,
+  .y2k-trust__item small {
+    display: block;
+  }
+
+  .y2k-trust__item strong {
+    font-family: var(--y2k-serif);
+    font-size: 0.92rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  .y2k-trust__item small {
+    margin-top: 0.2rem;
+    font-family: var(--y2k-serif);
+    font-size: 0.78rem;
+    line-height: 1.25;
+  }
+
+  .y2k-newsletter {
+    overflow: hidden;
+    background: var(--y2k-blush);
+  }
+
+  .y2k-newsletter__inner {
+    position: relative;
+    min-height: 11.5rem;
+    display: grid;
+    grid-template-columns: auto minmax(15rem, 1fr) minmax(22rem, 1.2fr) auto;
+    align-items: center;
+    gap: clamp(1.5rem, 4vw, 4rem);
+    padding-block: 2.5rem;
+  }
+
+  .y2k-newsletter__heart {
+    width: clamp(8rem, 12vw, 11rem);
+    height: auto;
+    display: block;
+  }
+
+  .y2k-newsletter h2 {
+    font-size: clamp(2.1rem, 4vw, 3.7rem);
+  }
+
+  .y2k-newsletter__copy > p:last-child {
+    margin: 0.55rem 0 0;
+    font-family: var(--y2k-serif);
+    font-size: 0.86rem;
+  }
+
+  .y2k-newsletter__form {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .y2k-newsletter__form input,
+  .y2k-newsletter__form button {
+    height: 3.25rem;
+    border: 1px solid rgba(61, 43, 39, 0.25);
+    border-radius: 0;
+    font-family: var(--y2k-sans);
+    font-size: 0.72rem;
+  }
+
+  .y2k-newsletter__form input {
+    min-width: 0;
+    padding-inline: 1.1rem;
+    color: var(--y2k-brown-dark);
+    background: var(--y2k-cream);
+  }
+
+  .y2k-newsletter__form button {
+    padding-inline: 1.75rem;
+    color: var(--y2k-cream);
+    background: var(--y2k-brown);
+    border-color: var(--y2k-brown);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .y2k-newsletter__message {
+    grid-column: 1 / -1;
+    margin: 0.5rem 0 0;
+    font-size: 0.75rem;
+  }
+
+  .y2k-newsletter__scribble {
+    width: clamp(7.5rem, 10vw, 9.5rem);
+    height: auto;
+    display: block;
+  }
+
+  @media screen and (max-width: 989px) {
+    .y2k-container {
+      width: min(100% - 2.5rem, 77rem);
+    }
+
+    .y2k-trust__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .y2k-trust__item:nth-child(3) {
+      border-left: 0;
+    }
+
+    .y2k-trust__item:nth-child(n + 3) {
+      border-top: 1px solid var(--y2k-line);
+    }
+
+    .y2k-newsletter__inner {
+      grid-template-columns: auto 1fr;
+    }
+
+    .y2k-newsletter__form {
+      grid-column: 1 / -1;
+    }
+
+    .y2k-newsletter__scribble {
+      display: none;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .y2k-container {
+      width: min(100% - 2rem, 77rem);
+    }
+
+    .y2k-hero {
+      min-height: 38rem;
+    }
+
+    .y2k-hero__image {
+      object-position: 14% center;
+    }
+
+    .y2k-hero::after {
+      background: rgba(43, 27, 22, 0.4);
+    }
+
+    .y2k-hero__content {
+      width: min(100%, 32rem);
+      padding-inline: 1rem;
+    }
+
+    .y2k-hero h1 {
+      font-size: clamp(3rem, 14vw, 4.4rem);
+    }
+
+    .y2k-section-heading {
+      align-items: center;
+    }
+
+    .y2k-products {
+      width: calc(100vw - 1rem);
+      grid-template-columns: repeat(3, minmax(16rem, 78vw));
+      gap: 1rem;
+      overflow-x: auto;
+      margin-right: calc((100vw - 100%) * -1);
+      padding-right: 1rem;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+    }
+
+    .y2k-product-card {
+      scroll-snap-align: start;
+    }
+
+    .y2k-product-card__arrow {
+      opacity: 1;
+      transform: none;
+    }
+
+    .y2k-bale {
+      grid-template-columns: 1fr;
+    }
+
+    .y2k-bale__copy {
+      min-height: auto;
+      place-items: start;
+      padding: 4rem 1.5rem;
+    }
+
+    .y2k-bale h2 {
+      font-size: clamp(3.4rem, 15vw, 5rem);
+    }
+
+    .y2k-bale__facts {
+      margin-top: 3.5rem;
+      font-size: 0.62rem;
+    }
+
+    .y2k-bale__media {
+      min-height: 28rem;
+    }
+
+    .y2k-trust__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .y2k-trust__item {
+      min-height: 6rem;
+      padding-inline: 0;
+    }
+
+    .y2k-trust__item + .y2k-trust__item,
+    .y2k-trust__item:nth-child(3) {
+      border-left: 0;
+      border-top: 1px solid var(--y2k-line);
+    }
+
+    .y2k-newsletter__inner {
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+      padding-block: 3.5rem;
+    }
+
+    .y2k-newsletter__heart {
+      position: absolute;
+      inset: 1rem 0 auto auto;
+      width: 7rem;
+      opacity: 0.6;
+    }
+
+    .y2k-newsletter__form {
+      grid-column: auto;
+      grid-template-columns: 1fr;
+      gap: 0.65rem;
+    }
+
+    .y2k-newsletter__form button {
+      width: 100%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .y2k-button,
+    .y2k-product-card__image,
+    .y2k-product-card__arrow {
+      transition: none;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Y2K editorial home",
+  "tag": "section",
+  "class": "y2k-editorial-home-section",
+  "max_blocks": 4,
+  "settings": [
+    { "type": "header", "content": "Hero" },
+    { "type": "image_picker", "id": "hero_image", "label": "Hero image" },
+    { "type": "text", "id": "hero_pretitle", "label": "Pretitle", "default": "Timeless pieces. A brighter tomorrow." },
+    { "type": "textarea", "id": "hero_heading", "label": "Heading", "default": "Authentic Y2K\nvintage drops" },
+    { "type": "textarea", "id": "hero_text", "label": "Text", "default": "Curated, authentic, high-demand Y2K pieces for a more stylish tomorrow." },
+    { "type": "text", "id": "hero_button_label", "label": "Button label", "default": "Shop the drop" },
+    { "type": "url", "id": "hero_button_link", "label": "Button link" },
+    { "type": "header", "content": "Featured products" },
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "text", "id": "products_pretitle", "label": "Pretitle", "default": "Fresh finds, timeless style" },
+    { "type": "text", "id": "products_heading", "label": "Heading", "default": "Latest Drop" },
+    { "type": "text", "id": "products_link_label", "label": "Collection link label", "default": "Shop all" },
+    { "type": "header", "content": "Y2K Bale feature" },
+    { "type": "image_picker", "id": "bale_image", "label": "Image" },
+    { "type": "text", "id": "bale_pretitle", "label": "Pretitle", "default": "Our bestseller" },
+    { "type": "textarea", "id": "bale_heading", "label": "Heading", "default": "The Y2K Bale" },
+    { "type": "richtext", "id": "bale_text", "label": "Text", "default": "<p>Authentic, high-demand Y2K pieces handpicked for your next vintage drop. Limited quantities—secure yours before they’re gone.</p>" },
+    { "type": "text", "id": "bale_button_label", "label": "Button label", "default": "Shop the Y2K Bale" },
+    { "type": "url", "id": "bale_button_link", "label": "Button link" },
+    { "type": "header", "content": "Newsletter" },
+    { "type": "text", "id": "newsletter_pretitle", "label": "Pretitle", "default": "Stay in the loop" },
+    { "type": "text", "id": "newsletter_heading", "label": "Heading", "default": "Be the First to Know" },
+    { "type": "text", "id": "newsletter_text", "label": "Text", "default": "Get early access to new drops, restocks, exclusive discounts and more." },
+    { "type": "text", "id": "newsletter_button", "label": "Button label", "default": "Subscribe" }
+  ],
+  "blocks": [
+    {
+      "type": "trust_item",
+      "name": "Trust item",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "diamond", "label": "Diamond" },
+            { "value": "tag", "label": "Tag" },
+            { "value": "globe", "label": "Globe" },
+            { "value": "heart", "label": "Heart" }
+          ],
+          "default": "diamond"
+        },
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Authenticated pieces" },
+        { "type": "text", "id": "text", "label": "Text", "default": "Real pieces. Real brands. No replicas." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Y2K editorial home",
+      "category": "Banners",
+      "blocks": [
+        { "type": "trust_item", "settings": { "icon": "diamond", "heading": "Authenticated pieces", "text": "Real pieces. Real brands. No replicas." } },
+        { "type": "trust_item", "settings": { "icon": "tag", "heading": "Limited quantities", "text": "Once it’s gone, it’s gone." } },
+        { "type": "trust_item", "settings": { "icon": "globe", "heading": "Worldwide shipping", "text": "Vintage finds, everywhere." } },
+        { "type": "trust_item", "settings": { "icon": "heart", "heading": "Curated drops", "text": "Handpicked with love." } }
+      ]
+    }
+  ]
+}
+{% endschema %}
