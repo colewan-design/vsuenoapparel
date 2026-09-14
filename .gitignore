@@ -1,0 +1,13 @@
+# Shopify CLI
+.shopify/
+
+# Dependencies
+node_modules/
+
+# Environment
+.env
+.env.*
+
+# OS / editor
+.DS_Store
+Thumbs.db
