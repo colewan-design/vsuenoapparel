@@ -1,0 +1,435 @@
+{% liquid
+  assign hero_media = section.settings.hero_image
+  assign hero_asset = 'bale-hero-banner.png'
+
+  assign category_blocks = section.blocks | where: 'type', 'category'
+  assign faq_blocks = section.blocks | where: 'type', 'faq'
+  assign bale_product = section.settings.bale_product
+  assign bale_variant = bale_product.selected_or_first_available_variant
+%}
+
+<div class="bale-landing">
+  <section class="bale-hero" aria-labelledby="BaleHeroHeading-{{ section.id }}">
+    <div class="bale-hero__copy">
+      <div class="bale-hero__copy-inner">
+        <p class="bale-kicker">{{ section.settings.hero_kicker | escape }}</p>
+        <h1 id="BaleHeroHeading-{{ section.id }}">{{ section.settings.hero_heading | escape | newline_to_br }}</h1>
+        <div class="bale-hero__text rte">{{ section.settings.hero_text }}</div>
+        <div class="bale-hero__actions">
+          <a class="bale-button bale-button--primary" href="#BaleOrder-{{ section.id }}">
+            <span>{{ section.settings.hero_primary_label | escape }}</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M14 7l5 5-5 5"/></svg>
+          </a>
+          <a class="bale-button bale-button--secondary" href="#BaleHow-{{ section.id }}">
+            <span>{{ section.settings.hero_secondary_label | escape }}</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M14 7l5 5-5 5"/></svg>
+          </a>
+        </div>
+        <p class="bale-hero__brands">{{ section.settings.hero_brands | escape }}</p>
+      </div>
+      <img class="bale-hero__sparkles" src="{{ 'newsletter-heart-sparkles.png' | asset_url }}" width="1774" height="887" alt="" aria-hidden="true">
+    </div>
+    <div class="bale-hero__media">
+      {% if hero_media != blank %}
+        {{ hero_media | image_url: width: 2200 | image_tag: widths: '720, 1080, 1440, 1800, 2200', sizes: '(min-width: 750px) 54vw, 100vw', class: 'bale-hero__image', fetchpriority: 'high' }}
+        <div class="bale-hero__photo-note" aria-hidden="true">
+          <img src="{{ 'good-clothes-brighter-days.png' | asset_url }}" width="1254" height="1254" alt="">
+        </div>
+        <span class="bale-hero__paper-note" aria-hidden="true">Same girls.<br>New stories. ♡</span>
+      {% else %}
+        <img
+          class="bale-hero__image"
+          src="{{ hero_asset | asset_img_url: '1672x' }}"
+          srcset="{{ hero_asset | asset_img_url: '720x' }} 720w, {{ hero_asset | asset_img_url: '1080x' }} 1080w, {{ hero_asset | asset_img_url: '1440x' }} 1440w, {{ hero_asset | asset_img_url: '1672x' }} 1672w"
+          sizes="(min-width: 750px) 54vw, 100vw"
+          width="1672"
+          height="941"
+          alt="Y2K vintage bale on a pallet with an Abercrombie hoodie, butterfly cami, and low-rise jeans"
+          fetchpriority="high"
+        >
+      {% endif %}
+    </div>
+  </section>
+
+  <section class="bale-facts" aria-label="Bale highlights">
+    <div class="bale-shell bale-facts__grid">
+      <div class="bale-fact">
+        <svg viewBox="0 0 48 48" aria-hidden="true"><path d="m7 14 17-9 17 9-17 9-17-9Zm0 0v20l17 9 17-9V14M24 23v20M15 10l18 9"/></svg>
+        <div><strong>30–45 pieces</strong><span>Authentic branded Y2K items in every bale</span></div>
+      </div>
+      <div class="bale-fact">
+        <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 4 6 17l18 27 18-27L24 4Zm0 0v40M6 17h36M15 10l9 7 9-7M15 17l9 27 9-27"/></svg>
+        <div><strong>Authentic brands</strong><span>Iconic early-2000s labels you love</span></div>
+      </div>
+      <div class="bale-fact">
+        <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 40V28h7v12H8Zm13 0V18h7v22h-7Zm13 0V7h7v33h-7Z"/></svg>
+        <div><strong>Reseller ready</strong><span>High-demand pieces for your business</span></div>
+      </div>
+      <div class="bale-fact">
+        <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="19"/><path d="M5 24h38M24 5c6 6 9 12 9 19s-3 13-9 19c-6-6-9-12-9-19s3-13 9-19Z"/></svg>
+        <div><strong>Worldwide shipping</strong><span>Vintage finds, everywhere</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bale-inside" aria-labelledby="BaleInsideHeading-{{ section.id }}">
+    <div class="bale-shell bale-inside__layout">
+      <div class="bale-inside__copy">
+        <p class="bale-kicker">{{ section.settings.inside_kicker | escape }}</p>
+        <h2 id="BaleInsideHeading-{{ section.id }}">{{ section.settings.inside_heading | escape }}</h2>
+        <div class="rte">{{ section.settings.inside_text }}</div>
+        <a class="bale-button bale-button--secondary" href="#BaleProducts-{{ section.id }}">
+          <span>{{ section.settings.inside_button_label | escape }}</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M14 7l5 5-5 5"/></svg>
+        </a>
+      </div>
+      <div class="bale-categories" aria-label="Example categories">
+        {% for block in category_blocks %}
+          {% liquid
+            assign category_image = block.settings.image
+            if category_image == blank and collection.products.size > 0
+              assign product_index = forloop.index0 | modulo: collection.products.size
+              assign category_product = collection.products[product_index]
+              assign category_image = category_product.featured_image
+            endif
+          %}
+          <article class="bale-category" {{ block.shopify_attributes }}>
+            <div class="bale-category__media">
+              {% if category_image != blank %}
+                {{ category_image | image_url: width: 640 | image_tag: widths: '220, 360, 480, 640', loading: 'lazy', class: 'bale-category__image' }}
+              {% else %}
+                {{ 'product-apparel-1' | placeholder_svg_tag: 'bale-category__image bale-placeholder' }}
+              {% endif %}
+            </div>
+            <h3>{{ block.settings.label | escape }}</h3>
+          </article>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="bale-order" id="BaleOrder-{{ section.id }}" aria-labelledby="BaleOrderHeading-{{ section.id }}">
+    <div class="bale-order__price">
+      <div class="bale-order__price-inner">
+        <p class="bale-kicker">{{ section.settings.price_kicker | escape }}</p>
+        <h2 id="BaleOrderHeading-{{ section.id }}">{{ section.settings.price_heading | escape }}</h2>
+        <p class="bale-order__subline">{{ section.settings.price_subline | escape }}</p>
+        <ul>
+          <li>Approximately 30–45 authentic branded Y2K vintage pieces</li>
+          <li>A unique mix of iconic early-2000s brands</li>
+          <li>Shipping quoted separately by destination and final weight</li>
+        </ul>
+
+        {% if bale_product != blank and bale_variant != blank and bale_variant.available %}
+          {% form 'product', bale_product, class: 'bale-order__product-form' %}
+            <input type="hidden" name="id" value="{{ bale_variant.id }}">
+            <input type="hidden" name="quantity" value="1">
+            <button class="bale-button bale-button--light" type="submit">Order now</button>
+          {% endform %}
+        {% else %}
+          <details class="bale-quote" id="BaleQuote-{{ section.id }}">
+            <summary class="bale-button bale-button--light">
+              <span>{{ section.settings.quote_button_label | escape }}</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M14 7l5 5-5 5"/></svg>
+            </summary>
+            <div class="bale-quote__panel">
+              {% form 'contact', class: 'bale-quote__form' %}
+                <input type="hidden" name="contact[request]" value="Y2K bale shipping quote">
+                <div class="bale-quote__field"><label for="BaleQuoteName-{{ section.id }}">Name</label><input id="BaleQuoteName-{{ section.id }}" name="contact[name]" type="text" required></div>
+                <div class="bale-quote__field"><label for="BaleQuoteEmail-{{ section.id }}">Email</label><input id="BaleQuoteEmail-{{ section.id }}" name="contact[email]" type="email" required></div>
+                <div class="bale-quote__field"><label for="BaleQuoteCountry-{{ section.id }}">Country</label><input id="BaleQuoteCountry-{{ section.id }}" name="contact[country]" type="text" required></div>
+                <div class="bale-quote__field"><label for="BaleQuoteCity-{{ section.id }}">City</label><input id="BaleQuoteCity-{{ section.id }}" name="contact[city]" type="text" required></div>
+                <div class="bale-quote__field"><label for="BaleQuotePostal-{{ section.id }}">Postal code</label><input id="BaleQuotePostal-{{ section.id }}" name="contact[postal_code]" type="text" required></div>
+                <button type="submit">Send quote request</button>
+                {% if form.posted_successfully? %}<p class="bale-quote__message">Thanks. We’ll send your shipping quote shortly.</p>{% endif %}
+                {% if form.errors %}<div class="bale-quote__message">{{ form.errors | default_errors }}</div>{% endif %}
+              {% endform %}
+            </div>
+          </details>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="bale-how" id="BaleHow-{{ section.id }}">
+      <div class="bale-how__inner">
+        <div class="bale-how__heading">
+          <p class="bale-kicker">Simple, transparent ordering</p>
+          <h2>How it works</h2>
+        </div>
+        <div class="bale-how__steps">
+          <article><span>1</span><svg viewBox="0 0 48 48" aria-hidden="true"><path d="m5 8 38 15-16 5-5 15L5 8Zm17 35 5-15 16-5M22 43l-5-13"/></svg><h3>Choose your bale</h3><p>Select the bale or request a quote.</p></article>
+          <article><span>2</span><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="18"/><path d="M6 24h36M24 6c6 6 9 12 9 18s-3 12-9 18c-6-6-9-12-9-18s3-12 9-18Z"/></svg><h3>Enter destination</h3><p>Share your country, city, and postal code.</p></article>
+          <article><span>3</span><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M5 13h25v23H5V13Zm25 9h8l5 7v7H30V22ZM12 39a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm24 0a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"/></svg><h3>Shipping is quoted</h3><p>We calculate costs from destination and weight.</p></article>
+          <article><span>4</span><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M15 10h18v34H9V10h6Zm0 0V5h18v5H15Zm-1 11h14M14 29h19M14 37h12"/></svg><h3>Confirm your order</h3><p>Approve the quote and we’ll prepare shipment.</p></article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bale-bottom" aria-label="Products and frequently asked questions">
+    <div class="bale-shell bale-bottom__layout">
+      <div class="bale-products" id="BaleProducts-{{ section.id }}">
+        <div class="bale-section-heading">
+          <div><p class="bale-kicker">Available now</p><h2>{{ section.settings.products_heading | escape }}</h2></div>
+          <a href="{{ collection.url }}">View all <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M14 7l5 5-5 5"/></svg></a>
+        </div>
+        <div class="bale-products__grid">
+          {% for product in collection.products limit: 3 %}
+            <article class="bale-product">
+              <a class="bale-product__media" href="{{ product.url }}">
+                {% if product.featured_image != blank %}
+                  {{ product.featured_image | image_url: width: 900 | image_tag: widths: '360, 540, 720, 900', loading: 'lazy', class: 'bale-product__image' }}
+                {% else %}
+                  {{ 'product-apparel-1' | placeholder_svg_tag: 'bale-product__image bale-placeholder' }}
+                {% endif %}
+                {% unless product.available %}<span class="bale-product__badge">Sold out</span>{% endunless %}
+              </a>
+              <h3><a href="{{ product.url }}">{{ product.title | escape }}</a></h3>
+              <p>{{ product.price | money }}</p>
+            </article>
+          {% else %}
+            {% for index in (1..3) %}<article class="bale-product"><div class="bale-product__media">{{ 'product-apparel-' | append: index | placeholder_svg_tag: 'bale-product__image bale-placeholder' }}</div><h3>Vintage Y2K piece</h3><p>$0.00</p></article>{% endfor %}
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="bale-faq">
+        <p class="bale-kicker">Everything you need to know</p>
+        <h2>{{ section.settings.faq_heading | escape }}</h2>
+        <p class="bale-faq__intro">{{ section.settings.faq_intro | escape }}</p>
+        <div class="bale-faq__list">
+          {% for block in faq_blocks %}
+            <details {{ block.shopify_attributes }}>
+              <summary><span>{{ block.settings.question | escape }}</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></summary>
+              <div class="rte">{{ block.settings.answer }}</div>
+            </details>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+{% stylesheet %}
+  .bale-landing {
+    --bale-cream: #fbf8f4;
+    --bale-paper: #f4ede7;
+    --bale-brown: #70483f;
+    --bale-ink: #432a25;
+    --bale-pink: #d98e9e;
+    --bale-blush: #f2dfe1;
+    --bale-line: rgba(67, 42, 37, 0.2);
+    --bale-serif: var(--font-heading--family), Georgia, serif;
+    --bale-sans: var(--font-accent--family), Arial, sans-serif;
+    color: var(--bale-ink);
+    background: var(--bale-cream);
+  }
+
+  .bale-landing *, .bale-landing *::before, .bale-landing *::after { box-sizing: border-box; }
+  .bale-shell { width: min(100% - clamp(2rem, 8vw, 8rem), 77rem); margin-inline: auto; }
+  .bale-kicker { margin: 0 0 0.7rem; font-family: var(--bale-sans); font-size: 0.68rem; font-weight: 600; letter-spacing: 0.16em; line-height: 1.2; text-transform: uppercase; }
+  .bale-landing h1, .bale-landing h2, .bale-landing h3, .bale-landing p { color: inherit; }
+  .bale-landing h1, .bale-landing h2 { margin: 0; font-family: var(--bale-serif); font-weight: 400; letter-spacing: -0.045em; line-height: 0.94; }
+  .bale-landing .rte p { margin: 0; }
+  .bale-landing .rte p + p { margin-top: 0.8rem; }
+  .bale-placeholder { color: rgba(67, 42, 37, 0.2); background: var(--bale-paper); }
+
+  .bale-hero { height: clamp(34rem, 45vw, 38rem); display: grid; grid-template-columns: minmax(0, 46%) minmax(0, 54%); background: var(--bale-paper); overflow: hidden; }
+  .bale-hero__copy { position: relative; display: grid; place-items: center; padding: clamp(2.5rem, 4vw, 4.5rem); isolation: isolate; }
+  .bale-hero__copy::before { position: absolute; inset: 0; z-index: -1; content: ''; opacity: 0.35; background-image: radial-gradient(rgba(112,72,63,.13) .7px, transparent .7px); background-size: 9px 9px; mask-image: linear-gradient(90deg,#000,transparent); }
+  .bale-hero__copy-inner { width: min(100%, 38rem); }
+  .bale-hero h1 { max-width: 12ch; font-size: clamp(3.6rem, 5.6vw, 6.2rem); }
+  .bale-hero__text { max-width: 37rem; margin-top: 1.3rem; font-family: var(--bale-serif); font-size: clamp(1.05rem, 1.4vw, 1.3rem); line-height: 1.35; }
+  .bale-hero__actions { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.6rem; }
+  .bale-button { min-height: 3.1rem; display: inline-flex; align-items: center; justify-content: center; gap: 1rem; padding: 0.85rem 1.8rem; border: 1px solid var(--bale-pink); border-radius: 0; font-family: var(--bale-sans); font-size: 0.71rem; font-weight: 600; letter-spacing: 0.1em; line-height: 1; text-decoration: none; text-transform: uppercase; cursor: pointer; transition: transform 180ms ease, background 180ms ease; }
+  .bale-button:hover { transform: translateY(-2px); }
+  .bale-button svg, .bale-section-heading a svg { width: 1.1rem; height: 1.1rem; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.6; }
+  .bale-button--primary { color: #fff; background: var(--bale-pink); }
+  .bale-button--secondary { color: var(--bale-ink); background: transparent; }
+  .bale-button--light { width: fit-content; color: var(--bale-ink); background: var(--bale-blush); border-color: var(--bale-blush); }
+  .bale-hero__brands { max-width: 42rem; margin: 1.7rem 0 0; font-family: var(--bale-serif); font-size: 0.84rem; line-height: 1.5; }
+  .bale-hero__sparkles { position: absolute; right: 1rem; top: 1rem; width: 9rem; height: auto; opacity: 0.85; pointer-events: none; }
+  .bale-hero__media { position: relative; min-width: 0; min-height: 0; overflow: hidden; }
+  .bale-hero__image { width: 100%; height: 100%; display: block; object-fit: cover; }
+  .bale-hero__media::before { position: absolute; inset: 0; content: ''; pointer-events: none; background: linear-gradient(90deg, rgba(244,237,231,1) 0%, rgba(244,237,231,.92) 6%, rgba(244,237,231,.55) 16%, rgba(244,237,231,0) 30%); }
+  .bale-hero__photo-note { position: absolute; top: 2rem; right: 1.8rem; width: 10.5rem; padding: 0.6rem; background: #2d2928; border: 0.45rem solid #fff; box-shadow: 0 0.8rem 1.8rem rgba(49,26,21,.2); rotate: -7deg; }
+  .bale-hero__photo-note img { width: 100%; height: auto; display: block; }
+  .bale-hero__paper-note { position: absolute; right: 2rem; bottom: 2rem; width: 10rem; min-height: 9rem; display: grid; place-items: center; padding: 1rem; color: var(--bale-ink); background: var(--bale-blush); box-shadow: 0 0.8rem 1.8rem rgba(49,26,21,.16); font-family: cursive; font-size: 1.3rem; line-height: 1.15; text-align: center; rotate: 7deg; }
+
+  .bale-facts { background: #fff; border-block: 1px solid var(--bale-line); }
+  .bale-facts__grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); }
+  .bale-fact { min-height: 7rem; display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 1.2rem; padding: 1.4rem 2rem; }
+  .bale-fact + .bale-fact { border-left: 1px solid var(--bale-line); }
+  .bale-fact svg { width: 3.1rem; height: 3.1rem; fill: none; stroke: var(--bale-ink); stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.35; }
+  .bale-fact strong, .bale-fact span { display: block; }
+  .bale-fact strong { font-family: var(--bale-serif); font-size: 0.92rem; text-transform: uppercase; }
+  .bale-fact span { margin-top: 0.3rem; font-family: var(--bale-serif); font-size: 0.77rem; line-height: 1.3; }
+
+  .bale-inside { position: relative; padding-block: clamp(3.5rem, 6vw, 6rem); overflow: hidden; background: var(--bale-cream); }
+  .bale-inside__layout { display: grid; grid-template-columns: minmax(17rem, 0.8fr) minmax(0, 2fr); align-items: center; gap: clamp(2rem, 5vw, 5rem); }
+  .bale-inside h2 { font-size: clamp(3rem, 4.2vw, 4.7rem); }
+  .bale-inside__copy .rte { max-width: 31rem; margin-top: 1rem; font-family: var(--bale-serif); font-size: 1rem; line-height: 1.45; }
+  .bale-inside__copy .bale-button { margin-top: 1.4rem; }
+  .bale-categories { display: grid; grid-template-columns: repeat(6, minmax(0,1fr)); gap: 0.7rem; }
+  .bale-category { min-width: 0; margin: 0; padding: 0.5rem; background: #fff; border: 1px solid var(--bale-line); box-shadow: 0 0.5rem 1.3rem rgba(67,42,37,.05); }
+  .bale-category__media { aspect-ratio: 4/5; overflow: hidden; background: var(--bale-paper); }
+  .bale-category__image { width: 100%; height: 100%; display: block; object-fit: cover; transition: scale 500ms cubic-bezier(.22,1,.36,1); }
+  .bale-category:hover .bale-category__image { scale: 1.035; }
+  .bale-category h3 { margin: 0.6rem 0 0.2rem; font-family: var(--bale-serif); font-size: 0.72rem; font-weight: 400; line-height: 1.2; text-align: center; }
+
+  .bale-order { display: grid; grid-template-columns: minmax(0, 40%) minmax(0, 60%); }
+  .bale-order__price { color: #fff; background: var(--bale-brown); }
+  .bale-order__price-inner { width: min(100%, 38rem); margin-inline: auto; padding: clamp(3rem, 5vw, 5rem); }
+  .bale-order__price h2 { font-size: clamp(3.5rem, 5.2vw, 5.5rem); }
+  .bale-order__subline { margin: 0.9rem 0 0; font-family: var(--bale-serif); font-size: 1.05rem; }
+  .bale-order__price ul { display: grid; gap: 0.9rem; margin: 1.8rem 0; padding: 0; list-style: none; }
+  .bale-order__price li { position: relative; padding-left: 1.8rem; font-family: var(--bale-serif); font-size: 0.88rem; line-height: 1.35; }
+  .bale-order__price li::before { position: absolute; left: 0; content: '✓'; font-family: var(--bale-sans); font-weight: 700; }
+  .bale-order__product-form { margin-top: 1.5rem; }
+  .bale-order__product-form button { border: 0; }
+  .bale-quote { margin-top: 1.5rem; }
+  .bale-quote summary { list-style: none; }
+  .bale-quote summary::-webkit-details-marker { display: none; }
+  .bale-quote__panel { margin-top: 1rem; padding: 1.2rem; color: var(--bale-ink); background: var(--bale-cream); }
+  .bale-quote__form { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 0.8rem; }
+  .bale-quote__field { display: grid; gap: 0.3rem; }
+  .bale-quote__field label { font-family: var(--bale-sans); font-size: 0.62rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+  .bale-quote__field input { width: 100%; min-height: 2.7rem; padding: .6rem .75rem; color: var(--bale-ink); background: #fff; border: 1px solid var(--bale-line); border-radius: 0; }
+  .bale-quote__form button { min-height: 2.8rem; padding: .7rem 1rem; color: #fff; background: var(--bale-pink); border: 0; font-family: var(--bale-sans); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; }
+  .bale-quote__message { grid-column: 1/-1; margin: 0; font-size: .8rem; }
+
+  .bale-how { display: grid; align-items: center; padding: clamp(3rem, 5vw, 5rem); background-color: var(--bale-cream); background-image: repeating-linear-gradient(90deg,rgba(217,142,158,.12) 0,rgba(217,142,158,.12) 1.7rem,transparent 1.7rem,transparent 3.4rem); }
+  .bale-how__inner { width: min(100%, 57rem); margin-inline: auto; }
+  .bale-how__heading { display: flex; justify-content: space-between; align-items: end; gap: 1rem; margin-bottom: 1.5rem; }
+  .bale-how h2 { font-size: clamp(2.5rem, 4vw, 4rem); }
+  .bale-how__steps { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); background: rgba(255,255,255,.72); border: 1px solid rgba(217,142,158,.35); }
+  .bale-how__steps article { position: relative; min-width: 0; padding: 1.5rem 1.1rem; text-align: center; }
+  .bale-how__steps article + article { border-left: 1px solid var(--bale-line); }
+  .bale-how__steps article > span { position: absolute; top: .7rem; left: .7rem; width: 1.8rem; aspect-ratio: 1; display: grid; place-items: center; color: #fff; background: var(--bale-pink); border-radius: 50%; font-family: var(--bale-serif); font-size: .8rem; }
+  .bale-how__steps svg { width: 3.2rem; height: 3.2rem; margin-bottom: .7rem; fill: none; stroke: var(--bale-ink); stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.35; }
+  .bale-how__steps h3 { margin: 0; font-family: var(--bale-serif); font-size: .92rem; font-weight: 600; }
+  .bale-how__steps p { margin: .4rem 0 0; font-family: var(--bale-serif); font-size: .73rem; line-height: 1.3; }
+
+  .bale-bottom { padding-block: clamp(4rem, 7vw, 7rem); background: #fff; }
+  .bale-bottom__layout { display: grid; grid-template-columns: minmax(0,1.8fr) minmax(18rem,.95fr); gap: clamp(2rem,5vw,5rem); }
+  .bale-section-heading { display: flex; justify-content: space-between; align-items: end; gap: 1rem; margin-bottom: 1.3rem; }
+  .bale-section-heading h2, .bale-faq h2 { font-size: clamp(2.6rem, 3.6vw, 3.8rem); }
+  .bale-section-heading a { display: inline-flex; align-items: center; gap: .7rem; color: inherit; font-family: var(--bale-sans); font-size: .67rem; letter-spacing: .09em; text-decoration: none; text-transform: uppercase; }
+  .bale-products__grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: .9rem; }
+  .bale-product__media { position: relative; aspect-ratio: 4/5; display: block; overflow: hidden; background: var(--bale-paper); }
+  .bale-product__image { width: 100%; height: 100%; display: block; object-fit: cover; transition: scale 550ms cubic-bezier(.22,1,.36,1); }
+  .bale-product:hover .bale-product__image { scale: 1.025; }
+  .bale-product__badge { position: absolute; top: .7rem; left: .7rem; padding: .35rem .55rem; color: var(--bale-ink); background: #fff; font-family: var(--bale-sans); font-size: .6rem; letter-spacing: .08em; text-transform: uppercase; }
+  .bale-product h3 { margin: .75rem 0 .25rem; font-family: var(--bale-serif); font-size: .88rem; font-weight: 400; line-height: 1.25; }
+  .bale-product h3 a { color: inherit; text-decoration: none; }
+  .bale-product > p { margin: 0; font-family: var(--bale-serif); font-size: .8rem; }
+  .bale-faq { padding-left: clamp(1.5rem,4vw,4rem); border-left: 1px solid var(--bale-line); }
+  .bale-faq__intro { margin: .6rem 0 1.2rem; font-family: var(--bale-serif); font-size: .84rem; }
+  .bale-faq__list { border-top: 1px solid var(--bale-line); }
+  .bale-faq details { border-bottom: 1px solid var(--bale-line); }
+  .bale-faq summary { min-height: 3.4rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; list-style: none; cursor: pointer; font-family: var(--bale-serif); font-size: .88rem; }
+  .bale-faq summary::-webkit-details-marker { display: none; }
+  .bale-faq summary svg { width: 1rem; height: 1rem; fill: none; stroke: var(--bale-pink); stroke-linecap: round; stroke-width: 1.5; transition: rotate 180ms ease; }
+  .bale-faq details[open] summary svg { rotate: 45deg; }
+  .bale-faq details .rte { padding: 0 1.5rem 1rem 0; font-family: var(--bale-serif); font-size: .8rem; line-height: 1.4; }
+
+  @media screen and (max-width: 989px) {
+    .bale-facts__grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+    .bale-fact:nth-child(3) { border-left: 0; }
+    .bale-fact:nth-child(n+3) { border-top: 1px solid var(--bale-line); }
+    .bale-inside__layout { grid-template-columns: 1fr; }
+    .bale-categories { overflow-x: auto; grid-template-columns: repeat(6,minmax(9rem,1fr)); padding-bottom: .8rem; scroll-snap-type: x mandatory; scrollbar-width: thin; }
+    .bale-category { scroll-snap-align: start; }
+    .bale-order { grid-template-columns: 1fr; }
+  }
+
+  @media screen and (max-width: 749px) {
+    .bale-shell { width: min(100% - 2rem,77rem); }
+    .bale-hero { height: auto; grid-template-columns: 1fr; }
+    .bale-hero__copy { padding: 3.5rem 1.2rem; }
+    .bale-hero h1 { font-size: clamp(3.2rem,14vw,4.5rem); }
+    .bale-hero__actions { display: grid; }
+    .bale-button { width: 100%; }
+    .bale-hero__sparkles { width: 7rem; right: -1rem; top: .5rem; opacity: .55; }
+    .bale-hero__media { min-height: 25rem; }
+    .bale-hero__media::before { background: linear-gradient(180deg, rgba(244,237,231,1) 0%, rgba(244,237,231,.85) 5%, rgba(244,237,231,.5) 13%, rgba(244,237,231,0) 26%); }
+    .bale-hero__photo-note { width: 8rem; right: 1rem; top: 1rem; }
+    .bale-hero__paper-note { width: 7.5rem; min-height: 7rem; right: 1rem; bottom: 1rem; font-size: 1rem; }
+    .bale-facts__grid { grid-template-columns: 1fr; }
+    .bale-fact { min-height: 5.8rem; padding-inline: 0; }
+    .bale-fact + .bale-fact, .bale-fact:nth-child(3) { border-left: 0; border-top: 1px solid var(--bale-line); }
+    .bale-inside { padding-block: 3.5rem; }
+    .bale-categories { width: calc(100vw - 1rem); grid-template-columns: repeat(6,minmax(12rem,72vw)); margin-right: calc((100vw - 100%)*-1); padding-right: 1rem; }
+    .bale-order__price-inner, .bale-how { padding: 3.5rem 1rem; }
+    .bale-order__price h2 { font-size: clamp(3.6rem,17vw,5rem); }
+    .bale-quote__form { grid-template-columns: 1fr; }
+    .bale-how__heading { display: block; }
+    .bale-how__steps { grid-template-columns: 1fr; }
+    .bale-how__steps article { display: grid; grid-template-columns: auto 1fr; column-gap: 1rem; text-align: left; }
+    .bale-how__steps article + article { border-left: 0; border-top: 1px solid var(--bale-line); }
+    .bale-how__steps article > span { position: static; grid-row: 1/4; }
+    .bale-how__steps svg { display: none; }
+    .bale-how__steps h3, .bale-how__steps p { grid-column: 2; }
+    .bale-bottom__layout { grid-template-columns: 1fr; }
+    .bale-products__grid { width: calc(100vw - 1rem); grid-template-columns: repeat(3,minmax(15rem,75vw)); gap: 1rem; overflow-x: auto; margin-right: calc((100vw - 100%)*-1); padding-right: 1rem; scroll-snap-type: x mandatory; scrollbar-width: none; }
+    .bale-product { scroll-snap-align: start; }
+    .bale-faq { padding: 3rem 0 0; border-top: 1px solid var(--bale-line); border-left: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bale-button, .bale-category__image, .bale-product__image, .bale-faq summary svg { transition: none; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Y2K bale collection",
+  "tag": "section",
+  "class": "y2k-bale-collection-section",
+  "max_blocks": 12,
+  "settings": [
+    { "type": "header", "content": "Hero" },
+    { "type": "image_picker", "id": "hero_image", "label": "Bale image" },
+    { "type": "text", "id": "hero_kicker", "label": "Kicker", "default": "Best-selling ABH-Y2K-Mix bale" },
+    { "type": "textarea", "id": "hero_heading", "label": "Heading", "default": "Authentic Y2K vintage,\nready for resale." },
+    { "type": "richtext", "id": "hero_text", "label": "Text", "default": "<p>30–45 branded vintage pieces sourced from Japan, Hong Kong, the United States, and occasionally Korea.</p><p>Real brands. Real style. Real opportunities.</p>" },
+    { "type": "text", "id": "hero_primary_label", "label": "Primary button", "default": "Shop the bale" },
+    { "type": "text", "id": "hero_secondary_label", "label": "Secondary button", "default": "How it works" },
+    { "type": "textarea", "id": "hero_brands", "label": "Brand list", "default": "Abercrombie · Hollister · Juicy Couture · Aeropostale · Victoria’s Secret · Roxy" },
+    { "type": "header", "content": "What's inside" },
+    { "type": "text", "id": "inside_kicker", "label": "Kicker", "default": "What’s inside" },
+    { "type": "text", "id": "inside_heading", "label": "Heading", "default": "Iconic Y2K pieces" },
+    { "type": "richtext", "id": "inside_text", "label": "Text", "default": "<p>Each bale is a unique mix of authentic Y2K and early-2000s clothing from sought-after brands, with a variety of styles, colors, and sizes.</p>" },
+    { "type": "text", "id": "inside_button_label", "label": "Button", "default": "View example pieces" },
+    { "type": "header", "content": "Price and ordering" },
+    { "type": "product", "id": "bale_product", "label": "Bale product", "info": "Select a product to enable direct add to cart. Leave blank to use the shipping quote form." },
+    { "type": "text", "id": "price_kicker", "label": "Kicker", "default": "The Y2K bale" },
+    { "type": "text", "id": "price_heading", "label": "Price heading", "default": "$200 per bale" },
+    { "type": "text", "id": "price_subline", "label": "Price detail", "default": "30–45 authentic branded pieces" },
+    { "type": "text", "id": "quote_button_label", "label": "Quote button", "default": "Request shipping quote" },
+    { "type": "header", "content": "Products and FAQ" },
+    { "type": "text", "id": "products_heading", "label": "Products heading", "default": "Featured pieces" },
+    { "type": "text", "id": "faq_heading", "label": "FAQ heading", "default": "Frequently asked questions" },
+    { "type": "text", "id": "faq_intro", "label": "FAQ introduction", "default": "Still have questions? We’ve got you." }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Vintage category" }
+      ]
+    },
+    {
+      "type": "faq",
+      "name": "FAQ",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question", "default": "Are the pieces authentic?" },
+        { "type": "richtext", "id": "answer", "label": "Answer", "default": "<p>Yes. Every bale is curated from authentic branded vintage clothing.</p>" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Y2K bale collection" }]
+}
+{% endschema %}
