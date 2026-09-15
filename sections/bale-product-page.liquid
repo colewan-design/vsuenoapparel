@@ -1,0 +1,166 @@
+{% comment %}
+  Renders the real product page block tree for one chosen product, on a template
+  that has no product of its own (the bale landing at /collections/all).
+
+  Shopify resolves product blocks through `closest.product`, which is nil on a
+  collection template -- so we pass the picked product in explicitly, exactly as
+  sections/product-information.liquid does for the product template. The blocks
+  themselves are the stock ones, so the gallery, variant picker, buy buttons and
+  accordion behave identically to /products/<handle>.
+{% endcomment %}
+
+{% liquid
+  assign bale = section.settings.product
+%}
+
+{% if bale != blank %}
+  <script type="application/ld+json">
+    {{ bale | structured_data }}
+  </script>
+
+  {% capture media_gallery %}
+    {%- content_for 'block',
+      type: '_product-media-gallery',
+      id: 'media-gallery',
+      closest.product: bale
+    -%}
+  {% endcapture %}
+
+  {% capture product_details %}
+    {% content_for 'block',
+      type: '_product-details',
+      id: 'product-details',
+      closest.product: bale
+    %}
+  {% endcapture %}
+
+  {% capture additional_blocks %}
+    {% content_for 'blocks' %}
+  {% endcapture %}
+
+  {% render 'product-information-content',
+    product: bale,
+    section_id: section.id,
+    settings: section.settings,
+    media_gallery: media_gallery,
+    product_details: product_details,
+    additional_blocks: additional_blocks
+  %}
+{% elsif request.design_mode %}
+  <p style="padding:2rem;text-align:center;">Pick a product in this section's settings.</p>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Bale product page",
+  "blocks": [
+    {
+      "type": "@theme"
+    },
+    {
+      "type": "@app"
+    }
+  ],
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product"
+    },
+    {
+      "type": "header",
+      "content": "t:content.layout"
+    },
+    {
+      "type": "select",
+      "id": "content_width",
+      "label": "t:settings.width",
+      "options": [
+        {
+          "value": "content-center-aligned",
+          "label": "t:options.page"
+        },
+        {
+          "value": "content-full-width",
+          "label": "t:options.full"
+        }
+      ],
+      "default": "content-center-aligned"
+    },
+    {
+      "type": "select",
+      "id": "desktop_media_position",
+      "label": "t:settings.media_position",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:options.left"
+        },
+        {
+          "value": "right",
+          "label": "t:options.right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "checkbox",
+      "id": "equal_columns",
+      "label": "t:settings.equal_columns",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "limit_details_width",
+      "label": "t:settings.limit_product_details_width",
+      "default": false,
+      "visible_if": "{{ section.settings.equal_columns }}"
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "label": "t:settings.gap",
+      "min": 0,
+      "max": 48,
+      "step": 4,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "t:settings.background_color",
+      "placeholder": "t:settings.default"
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bale product page"
+    }
+  ]
+}
+{% endschema %}

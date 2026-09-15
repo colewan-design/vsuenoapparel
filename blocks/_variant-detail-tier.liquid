@@ -1,0 +1,84 @@
+{% doc %}
+  One tier of the variant details panel. Shown when its "Variant option value"
+  matches the selected variant's first option value.
+{% enddoc %}
+
+{% liquid
+  assign target_product = closest.product
+  if request.visual_preview_mode and target_product == blank
+    assign target_product = collections.all.products.first
+  endif
+
+  assign current_variant = target_product.selected_or_first_available_variant
+  assign current_value = current_variant.option1 | strip | downcase
+  assign tier_value = block.settings.variant_value | strip | downcase
+  assign is_active = false
+  if tier_value != blank and tier_value == current_value
+    assign is_active = true
+  endif
+%}
+
+<div
+  class="variant-detail{% if is_active %} variant-detail--active{% endif %}"
+  data-variant-value="{{ block.settings.variant_value | escape }}"
+  {% unless is_active %}hidden{% endunless %}
+  {{ block.shopify_attributes }}
+>
+  {% if block.settings.label != blank %}
+    <p class="variant-detail__label">{{ block.settings.label | escape }}</p>
+  {% endif %}
+
+  <dl class="variant-detail__rows">
+    {% if block.settings.pieces != blank %}
+      <div class="variant-detail__row">
+        <dt>{{ 'icon-inventory.svg' | inline_asset_content }}<span>Pieces</span></dt>
+        <dd>{{ block.settings.pieces | escape }}</dd>
+      </div>
+    {% endif %}
+    {% if block.settings.weight != blank %}
+      <div class="variant-detail__row">
+        <dt>{{ 'icon-discount.svg' | inline_asset_content }}<span>Weight</span></dt>
+        <dd>{{ block.settings.weight | escape }}</dd>
+      </div>
+    {% endif %}
+    {% if block.settings.best_for != blank %}
+      <div class="variant-detail__row">
+        <dt>{{ 'icon-account.svg' | inline_asset_content }}<span>Best for</span></dt>
+        <dd>{{ block.settings.best_for | escape }}</dd>
+      </div>
+    {% endif %}
+    {% if block.settings.included != blank %}
+      <div class="variant-detail__row">
+        <dt>{{ 'icon-checkmark.svg' | inline_asset_content }}<span>What's included</span></dt>
+        <dd class="rte">{{ block.settings.included }}</dd>
+      </div>
+    {% endif %}
+    {% if block.settings.good_to_know != blank %}
+      <div class="variant-detail__row">
+        <dt>{{ 'icon-info.svg' | inline_asset_content }}<span>Good to know</span></dt>
+        <dd class="rte">{{ block.settings.good_to_know }}</dd>
+      </div>
+    {% endif %}
+  </dl>
+</div>
+
+{% schema %}
+{
+  "name": "Variant detail tier",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "variant_value",
+      "label": "Variant option value",
+      "info": "Must match the variant option value exactly, e.g. 30–45 pcs / 10–11 kg."
+    },
+    { "type": "text", "id": "label", "label": "Tier label" },
+    { "type": "text", "id": "pieces", "label": "Pieces" },
+    { "type": "text", "id": "weight", "label": "Weight" },
+    { "type": "text", "id": "best_for", "label": "Best for" },
+    { "type": "richtext", "id": "included", "label": "What's included" },
+    { "type": "richtext", "id": "good_to_know", "label": "Good to know" }
+  ]
+}
+{% endschema %}

@@ -1,5 +1,6 @@
 {% liquid
   assign featured_collection = section.settings.collection | default: collections.all
+  assign drop_tag = section.settings.product_tag | strip | downcase
 %}
 
 <div class="y2k-home">
@@ -61,7 +62,21 @@
       </header>
 
       <div class="y2k-products">
-        {% for product in featured_collection.products limit: 3 %}
+        {%- assign drop_shown = 0 -%}
+        {% for product in featured_collection.products %}
+          {%- if drop_tag != blank -%}
+            {%- assign drop_match = false -%}
+            {%- for drop_candidate in product.tags -%}
+              {%- assign drop_candidate_key = drop_candidate | downcase -%}
+              {%- if drop_candidate_key == drop_tag -%}
+                {%- assign drop_match = true -%}
+                {%- break -%}
+              {%- endif -%}
+            {%- endfor -%}
+            {%- unless drop_match -%}{%- continue -%}{%- endunless -%}
+          {%- endif -%}
+          {%- if drop_shown >= 3 -%}{%- break -%}{%- endif -%}
+          {%- assign drop_shown = drop_shown | plus: 1 -%}
           <article class="y2k-product-card">
             <a class="y2k-product-card__media" href="{{ product.url }}" aria-label="{{ product.title | escape }}">
               {% if product.featured_image != blank %}
@@ -89,7 +104,8 @@
               </p>
             </div>
           </article>
-        {% else %}
+        {% endfor %}
+        {% if drop_shown == 0 %}
           {% for index in (1..3) %}
             <article class="y2k-product-card">
               <div class="y2k-product-card__media">
@@ -98,7 +114,7 @@
               <div class="y2k-product-card__meta"><h3>Vintage find</h3><p>$0.00</p></div>
             </article>
           {% endfor %}
-        {% endfor %}
+        {% endif %}
       </div>
     </div>
   </section>
@@ -858,6 +874,7 @@
     { "type": "url", "id": "hero_button_link", "label": "Button link" },
     { "type": "header", "content": "Featured products" },
     { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "text", "id": "product_tag", "label": "Product tag", "default": "solo", "info": "Only products carrying this tag appear in the grid. Leave blank to show every product in the collection." },
     { "type": "text", "id": "products_pretitle", "label": "Pretitle", "default": "Fresh finds, timeless style" },
     { "type": "text", "id": "products_heading", "label": "Heading", "default": "Latest Drop" },
     { "type": "text", "id": "products_link_label", "label": "Collection link label", "default": "Shop all" },

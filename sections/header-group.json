@@ -8,7 +8,7 @@
         "announcement_KMAGKG": {
           "type": "_announcement",
           "settings": {
-            "text": "✦ LIMITED Y2K BALES LEFT — SHOP THE DROP ✦",
+            "text": "✦ LIMITED Y2K BALES LEFT ✦",
             "link": "shopify://collections/all",
             "font": "var(--font-accent--family)",
             "font_size": "0.625rem",
@@ -30,6 +30,36 @@
         "divider_color": "",
         "padding-block-start": 8,
         "padding-block-end": 8
+      }
+    },
+    "header_shipping_notice": {
+      "type": "header-announcements",
+      "blocks": {
+        "shipping_notice": {
+          "type": "_announcement",
+          "settings": {
+            "text": "SHIPPING OUT 2-3 DAYS AFTER PURCHASE!",
+            "link": "",
+            "font": "var(--font-accent--family)",
+            "font_size": "0.625rem",
+            "weight": "",
+            "letter_spacing": "loose",
+            "case": "uppercase",
+            "text_color": ""
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": ["shipping_notice"],
+      "name": "Shipping notice",
+      "settings": {
+        "speed": 5,
+        "section_width": "full-width",
+        "background_color": "{{ settings.color_palette.background }}",
+        "divider_width": 0,
+        "divider_color": "",
+        "padding-block-start": 6,
+        "padding-block-end": 6
       }
     },
     "header_section": {
@@ -116,5 +146,5 @@
       }
     }
   },
-  "order": ["header_announcements_pbXTDf", "header_section"]
+  "order": ["header_announcements_pbXTDf", "header_shipping_notice", "header_section"]
 }

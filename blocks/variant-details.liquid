@@ -1,0 +1,173 @@
+{% doc %}
+  Shows details for the currently selected variant, directly below the variant
+  picker. Each child tier maps to one variant option value.
+{% enddoc %}
+
+<variant-details
+  class="variant-details"
+  data-product-id="{{ closest.product.id }}"
+  {{ block.shopify_attributes }}
+>
+  {% if block.settings.heading != blank %}
+    <div class="variant-details__header">
+      <h3 class="variant-details__heading">{{ block.settings.heading | escape }}</h3>
+    </div>
+  {% endif %}
+
+  <div class="variant-details__panels">
+    {% content_for 'blocks' %}
+  </div>
+</variant-details>
+
+{% stylesheet %}
+  .variant-details {
+    display: block;
+    margin-block: 12px;
+    border: 1px solid var(--color-border, rgb(0 0 0 / 12%));
+    border-radius: var(--style-border-radius-inputs, 8px);
+    background: var(--color-background, #fff);
+  }
+
+  .variant-details__header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 16px 0;
+  }
+
+  .variant-details__heading {
+    margin: 0;
+    font-size: 1.05rem;
+    line-height: 1.2;
+  }
+
+  .variant-detail__label {
+    margin: 0 0 10px;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.65;
+  }
+
+  .variant-detail {
+    padding: 14px 16px 16px;
+  }
+
+  .variant-detail__rows {
+    display: grid;
+    gap: 10px;
+    margin: 0;
+  }
+
+  .variant-detail__row {
+    display: grid;
+    grid-template-columns: minmax(7.5rem, 8.5rem) 1fr;
+    gap: 10px;
+    align-items: start;
+    padding-block-start: 10px;
+    border-block-start: 1px solid var(--color-border, rgb(0 0 0 / 8%));
+  }
+
+  .variant-detail__row:first-child {
+    padding-block-start: 0;
+    border-block-start: 0;
+  }
+
+  .variant-detail__row dt {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin: 0;
+    font-size: 0.82rem;
+    opacity: 0.7;
+  }
+
+  .variant-detail__row dt svg {
+    width: 15px;
+    height: 15px;
+    flex: none;
+  }
+
+  .variant-detail__row dd {
+    margin: 0;
+    font-size: 0.88rem;
+    line-height: 1.5;
+  }
+
+  .variant-detail__row dd ul {
+    margin: 0;
+    padding-inline-start: 1.1em;
+  }
+
+  .variant-detail__row dd p {
+    margin: 0;
+  }
+
+  @media screen and (max-width: 749px) {
+    .variant-detail__row {
+      grid-template-columns: 1fr;
+      gap: 4px;
+    }
+  }
+
+  /**
+   * Staggered reveal when switching variants. Shares the easing and feel of
+   * smooth-text-animation.css, but rises the whole row rather than splitting
+   * words -- the rows carry bullet lists and wrap over several lines, which a
+   * per-word mask would clip.
+   *
+   * Only applied by variant-details.js on an actual variant change, so the
+   * first paint of the page stays still.
+   */
+  .variant-details {
+    --vd-duration: 620ms;
+    --vd-stagger: 55ms;
+  }
+
+  .variant-detail--animate .variant-detail__label,
+  .variant-detail--animate .variant-detail__row {
+    will-change: transform, opacity;
+    animation: vd-row-rise var(--vd-duration) cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: calc(var(--vd-index, 0) * var(--vd-stagger));
+  }
+
+  @keyframes vd-row-rise {
+    from {
+      opacity: 0;
+      transform: translateY(9px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .variant-detail--animate .variant-detail__label,
+    .variant-detail--animate .variant-detail__row {
+      animation: none;
+      opacity: 1;
+      transform: none;
+      will-change: auto;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Variant details",
+  "tag": null,
+  "blocks": [{ "type": "_variant-detail-tier" }],
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Variant details"
+    }
+  ],
+  "presets": [{ "name": "Variant details" }]
+}
+{% endschema %}

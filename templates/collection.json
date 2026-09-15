@@ -1,20 +1,461 @@
 {
   "sections": {
+    "bale_product_page": {
+      "type": "bale-product-page",
+      "blocks": {
+        "disclosures_4NahGN": {
+          "type": "disclosures",
+          "name": "t:names.disclosures",
+          "settings": {
+            "heading": "Disclosures",
+            "heading_preset": "h4",
+            "open_by_default": false,
+            "icon": "caret",
+            "disclosure_heading_preset": "h6",
+            "text_color": "",
+            "dividers": true,
+            "divider_color": "{{ settings.color_palette.color3 }}",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "media-gallery": {
+          "type": "_product-media-gallery",
+          "static": true,
+          "settings": {
+            "media_presentation": "carousel",
+            "media_columns": "two",
+            "image_gap": 4,
+            "large_first_image": false,
+            "icons_style": "arrow",
+            "slideshow_controls_style": "thumbnails",
+            "slideshow_mobile_controls_style": "dots",
+            "thumbnail_position": "right",
+            "thumbnail_width": 44,
+            "thumbnail_radius": 0,
+            "aspect_ratio": "1/1.25",
+            "constrain_to_viewport": false,
+            "media_fit": "cover",
+            "media_radius": 0,
+            "extend_media": false,
+            "zoom": true,
+            "video_loop": false,
+            "hide_variants": false,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "product-details": {
+          "type": "_product-details",
+          "static": true,
+          "settings": {
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "details_position": "flex-start",
+            "gap": 12,
+            "sticky_details_desktop": true,
+            "background_media": "none",
+            "background_color": "",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_color": "",
+            "border_radius": 0,
+            "padding-block-start": 16,
+            "padding-block-end": 16,
+            "padding-inline-start": 12,
+            "padding-inline-end": 12
+          },
+          "blocks": {
+            "text_WE3K4w": {
+              "type": "text",
+              "name": "t:names.title",
+              "settings": {
+                "text": "<h1>{{ closest.product.title }}</h1>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "h2",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "text_color": "",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "reviews": {
+              "type": "review",
+              "settings": {
+                "stars_style": "shaded",
+                "show_number": true,
+                "text_color": "",
+                "type_preset": "paragraph",
+                "width": "100%",
+                "alignment": "left"
+              },
+              "blocks": {}
+            },
+            "price_a7krng": {
+              "type": "price",
+              "settings": {
+                "show_sale_price_first": true,
+                "show_installments": true,
+                "show_tax_info": true,
+                "type_preset": "paragraph",
+                "width": "100%",
+                "alignment": "left",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "text_color": "",
+                "padding-block-start": 4,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "variant_picker_R3rGDr": {
+              "type": "variant-picker",
+              "settings": {
+                "variant_style": "buttons",
+                "show_swatches": true,
+                "option_label_text_color": "",
+                "variant_style_class": "default",
+                "custom_variant_background": "{{ settings.color_palette.background }}",
+                "custom_variant_text": "{{ settings.color_palette.foreground }}",
+                "custom_variant_border": "{{ settings.color_palette.foreground }}",
+                "selected_variant_style_class": "default",
+                "custom_selected_variant_background": "{{ settings.color_palette.foreground }}",
+                "custom_selected_variant_text": "{{ settings.color_palette.background }}",
+                "custom_selected_variant_border": "{{ settings.color_palette.foreground }}",
+                "alignment": "left",
+                "padding-block-start": 12,
+                "padding-block-end": 12,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "buy_buttons_eYQEYi": {
+              "type": "buy-buttons",
+              "settings": {
+                "stacking": false,
+                "text_color": "",
+                "show_pickup_availability": false,
+                "gift_card_form": true,
+                "recipient_button_style": "default",
+                "recipient_button_background": "{{ settings.color_palette.background }}",
+                "recipient_button_text": "{{ settings.color_palette.foreground }}",
+                "recipient_button_border": "{{ settings.color_palette.foreground }}",
+                "selected_recipient_button_style": "default",
+                "selected_recipient_button_background": "{{ settings.color_palette.foreground }}",
+                "selected_recipient_button_text": "{{ settings.color_palette.background }}",
+                "selected_recipient_button_border": "{{ settings.color_palette.foreground }}",
+                "input_style": "default",
+                "input_background_color": "{{ settings.color_palette.background }}",
+                "input_text_color": "{{ settings.color_palette.foreground }}",
+                "input_border_color": "{{ settings.color_palette.foreground }}",
+                "border_width": 1,
+                "border_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "quantity": {
+                  "type": "quantity",
+                  "static": true,
+                  "settings": {
+                    "input_style": "default",
+                    "input_background_color": "{{ settings.color_palette.background }}",
+                    "input_text_color": "{{ settings.color_palette.foreground }}",
+                    "input_border_color": "{{ settings.color_palette.foreground }}",
+                    "border_width": 1,
+                    "border_radius": 0
+                  },
+                  "blocks": {}
+                },
+                "add-to-cart": {
+                  "type": "add-to-cart",
+                  "static": true,
+                  "settings": {
+                    "style_class": "button",
+                    "custom_button_background": "{{ settings.color_palette.foreground }}",
+                    "custom_button_text": "{{ settings.color_palette.background }}",
+                    "custom_button_border": "{{ settings.color_palette.background }}"
+                  },
+                  "blocks": {}
+                },
+                "accelerated-checkout": {
+                  "type": "accelerated-checkout",
+                  "static": true,
+                  "settings": {},
+                  "blocks": {}
+                }
+              },
+              "block_order": []
+            },
+            "accordion_Yd4U4w": {
+              "type": "accordion",
+              "name": "Accordion",
+              "settings": {
+                "icon": "plus",
+                "dividers": true,
+                "divider_color": "{{ settings.color_palette.color3 }}",
+                "type_preset": "h6",
+                "background_color": "",
+                "text_color": "",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_color": "",
+                "border_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "accordion_row_P46NdC": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "Details",
+                    "open_by_default": true,
+                    "icon": "none",
+                    "width": 20
+                  },
+                  "blocks": {
+                    "product_description_TH8Net": {
+                      "type": "product-description",
+                      "name": "t:names.product_description",
+                      "settings": {
+                        "text": "{{ closest.product.description }}<p></p>",
+                        "width": "fit-content",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-primary--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "text_color": "",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "product_description_TH8Net"
+                  ]
+                }
+              },
+              "block_order": [
+                "accordion_row_P46NdC"
+              ]
+            },
+            "variant_details": {
+              "type": "variant-details",
+              "blocks": {
+                "tier_starter": {
+                  "type": "_variant-detail-tier",
+                  "settings": {
+                    "variant_value": "30–45 pcs / 10–11 kg",
+                    "label": "Starter bundle",
+                    "pieces": "Approximately 30–45 pieces",
+                    "weight": "Estimated 10–11 kg",
+                    "best_for": "New resellers or first-time bale buyers",
+                    "included": "<ul><li>A curated starter mix of authentic Y2K pieces</li><li>Tops, bottoms, outerwear, and more</li><li>Brands may include Hollister, Abercrombie &amp; Fitch, American Eagle, Aeropostale, PINK, Victoria's Secret, Juicy Couture, ROXY, Bebe, and more</li><li>A wide variety of styles, colors, and sizes</li></ul>",
+                    "good_to_know": "<p>Every bale is uniquely assorted — exact pieces, brands, colors, and quantities are not guaranteed, but every item is authentic branded vintage. Shipping is calculated by the courier at checkout based on your destination and order weight.</p>"
+                  }
+                },
+                "tier_standard": {
+                  "type": "_variant-detail-tier",
+                  "settings": {
+                    "variant_value": "50–80 pcs / 14–16 kg",
+                    "label": "Standard bundle",
+                    "pieces": "Approximately 50–80 pieces",
+                    "weight": "Estimated 14–16 kg",
+                    "best_for": "Sellers restocking a growing shop",
+                    "included": "<ul><li>A larger curated mix of authentic Y2K pieces</li><li>Tops, bottoms, outerwear, and more</li><li>Brands may include Hollister, Abercrombie &amp; Fitch, American Eagle, Aeropostale, PINK, Victoria's Secret, Juicy Couture, ROXY, Bebe, and more</li><li>A wide variety of styles, colors, and sizes</li></ul>",
+                    "good_to_know": "<p>Every bale is uniquely assorted — exact pieces, brands, colors, and quantities are not guaranteed, but every item is authentic branded vintage. Shipping is calculated by the courier at checkout based on your destination and order weight.</p>"
+                  }
+                },
+                "tier_large": {
+                  "type": "_variant-detail-tier",
+                  "settings": {
+                    "variant_value": "80–110 pcs / 17–19 kg",
+                    "label": "Large bundle",
+                    "pieces": "Approximately 80–110 pieces",
+                    "weight": "Estimated 17–19 kg",
+                    "best_for": "Established resellers buying in volume",
+                    "included": "<ul><li>A high-volume mix of authentic Y2K pieces</li><li>Tops, bottoms, outerwear, and more</li><li>Brands may include Hollister, Abercrombie &amp; Fitch, American Eagle, Aeropostale, PINK, Victoria's Secret, Juicy Couture, ROXY, Bebe, and more</li><li>A wide variety of styles, colors, and sizes</li></ul>",
+                    "good_to_know": "<p>Every bale is uniquely assorted — exact pieces, brands, colors, and quantities are not guaranteed, but every item is authentic branded vintage. Shipping is calculated by the courier at checkout based on your destination and order weight.</p>"
+                  }
+                },
+                "tier_studio": {
+                  "type": "_variant-detail-tier",
+                  "settings": {
+                    "variant_value": "100–150 pcs / 20–25 kg",
+                    "label": "Studio bundle",
+                    "pieces": "Approximately 100–150 pieces",
+                    "weight": "Estimated 20–25 kg",
+                    "best_for": "Studios and stores stocking a full rack",
+                    "included": "<ul><li>Our largest curated mix of authentic Y2K pieces</li><li>Tops, bottoms, outerwear, and more</li><li>Brands may include Hollister, Abercrombie &amp; Fitch, American Eagle, Aeropostale, PINK, Victoria's Secret, Juicy Couture, ROXY, Bebe, and more</li><li>A wide variety of styles, colors, and sizes</li></ul>",
+                    "good_to_know": "<p>Every bale is uniquely assorted — exact pieces, brands, colors, and quantities are not guaranteed, but every item is authentic branded vintage. Shipping is calculated by the courier at checkout based on your destination and order weight.</p>"
+                  }
+                }
+              },
+              "block_order": [
+                "tier_starter",
+                "tier_standard",
+                "tier_large",
+                "tier_studio"
+              ],
+              "settings": {
+                "heading": "Variant details"
+              }
+            }
+          },
+          "block_order": [
+            "text_WE3K4w",
+            "reviews",
+            "price_a7krng",
+            "variant_picker_R3rGDr",
+            "variant_details",
+            "buy_buttons_eYQEYi",
+            "accordion_Yd4U4w"
+          ]
+        }
+      },
+      "settings": {
+        "content_width": "content-center-aligned",
+        "desktop_media_position": "left",
+        "equal_columns": false,
+        "limit_details_width": true,
+        "gap": 24,
+        "background_color": "{{ settings.color_palette.background }}",
+        "padding-block-start": 30,
+        "padding-block-end": 0,
+        "product": "best-selling-abh-y2k-mix-starter-bale-contains-approximately-30-45-authentic-branded-y2k-vintage-pieces-with-an-approximate-bale-weight-of-10-11-kg"
+      },
+      "block_order": [
+        "disclosures_4NahGN"
+      ]
+    },
     "y2k_bale_collection": {
       "type": "y2k-bale-collection",
       "blocks": {
-        "category_hoodies": { "type": "category", "settings": { "label": "Vintage hoodies" } },
-        "category_bottoms": { "type": "category", "settings": { "label": "Low-rise bottoms" } },
-        "category_henleys": { "type": "category", "settings": { "label": "Henleys" } },
-        "category_camis": { "type": "category", "settings": { "label": "Camis" } },
-        "category_velour": { "type": "category", "settings": { "label": "Velour track pants" } },
-        "category_jackets": { "type": "category", "settings": { "label": "Vintage jackets" } },
-        "faq_authentic": { "type": "faq", "settings": { "question": "Are the pieces authentic?", "answer": "<p>Yes. Every item is authentic branded vintage sourced by our team.</p>" } },
-        "faq_condition": { "type": "faq", "settings": { "question": "What condition are the items in?", "answer": "<p>Pieces are supplied in excellent to good vintage condition. Light age-related wear can be expected.</p>" } },
-        "faq_brands": { "type": "faq", "settings": { "question": "What brands can I expect?", "answer": "<p>Bales may include Abercrombie, Hollister, Juicy Couture, Aeropostale, Victoria’s Secret, Roxy, Bebe, and similar Y2K labels. Exact brands cannot be guaranteed.</p>" } },
-        "faq_shipping": { "type": "faq", "settings": { "question": "How much is shipping?", "answer": "<p>Shipping is calculated separately using the destination and final package weight. Submit the quote form for an accurate amount.</p>" } },
-        "faq_choice": { "type": "faq", "settings": { "question": "Can I choose specific items?", "answer": "<p>Each bale is a unique curated assortment, so specific brands, colors, styles, or quantities cannot be guaranteed.</p>" } },
-        "faq_returns": { "type": "faq", "settings": { "question": "Do you accept returns?", "answer": "<p>Please review the store return policy before ordering. Contact us before purchase if you need help confirming suitability.</p>" } }
+        "category_hoodies": {
+          "type": "category",
+          "settings": {
+            "label": "Vintage hoodies"
+          }
+        },
+        "category_bottoms": {
+          "type": "category",
+          "settings": {
+            "label": "Low-rise bottoms"
+          }
+        },
+        "category_henleys": {
+          "type": "category",
+          "settings": {
+            "label": "Henleys"
+          }
+        },
+        "category_camis": {
+          "type": "category",
+          "settings": {
+            "label": "Camis"
+          }
+        },
+        "category_velour": {
+          "type": "category",
+          "settings": {
+            "label": "Velour track pants"
+          }
+        },
+        "category_jackets": {
+          "type": "category",
+          "settings": {
+            "label": "Vintage jackets"
+          }
+        },
+        "faq_authentic": {
+          "type": "faq",
+          "settings": {
+            "question": "Are the pieces authentic?",
+            "answer": "<p>Yes. Every item is authentic branded vintage sourced by our team.</p>"
+          }
+        },
+        "faq_condition": {
+          "type": "faq",
+          "settings": {
+            "question": "What condition are the items in?",
+            "answer": "<p>Pieces are supplied in excellent to good vintage condition. Light age-related wear can be expected.</p>"
+          }
+        },
+        "faq_brands": {
+          "type": "faq",
+          "settings": {
+            "question": "What brands can I expect?",
+            "answer": "<p>Bales may include Abercrombie, Hollister, Juicy Couture, Aeropostale, Victoria’s Secret, Roxy, Bebe, and similar Y2K labels. Exact brands cannot be guaranteed.</p>"
+          }
+        },
+        "faq_shipping": {
+          "type": "faq",
+          "settings": {
+            "question": "How much is shipping?",
+            "answer": "<p>Shipping is calculated separately using the destination and final package weight. Submit the quote form for an accurate amount.</p>"
+          }
+        },
+        "faq_choice": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I choose specific items?",
+            "answer": "<p>Each bale is a unique curated assortment, so specific brands, colors, styles, or quantities cannot be guaranteed.</p>"
+          }
+        },
+        "faq_returns": {
+          "type": "faq",
+          "settings": {
+            "question": "Do you accept returns?",
+            "answer": "<p>Please review the store return policy before ordering. Contact us before purchase if you need help confirming suitability.</p>"
+          }
+        }
       },
       "block_order": [
         "category_hoodies",
@@ -47,10 +488,16 @@
         "price_subline": "30–45 authentic branded pieces",
         "quote_button_label": "Request shipping quote",
         "products_heading": "Featured pieces",
+        "product_tag": "bale",
         "faq_heading": "Frequently asked questions",
-        "faq_intro": "Still have questions? We’ve got you."
+        "faq_intro": "Still have questions? We’ve got you.",
+        "bale_product": "best-selling-abh-y2k-mix-starter-bale-contains-approximately-30-45-authentic-branded-y2k-vintage-pieces-with-an-approximate-bale-weight-of-10-11-kg",
+        "hero_included": "<ul><li>Tops, bottoms, outerwear, and more</li><li>Brands may include Hollister, Abercrombie &amp; Fitch, American Eagle, Aeropostale, PINK, Victoria's Secret, Juicy Couture, ROXY, Bebe, and more</li><li>A wide variety of styles, colors, and sizes</li></ul>"
       }
     }
   },
-  "order": ["y2k_bale_collection"]
+  "order": [
+    "bale_product_page",
+    "y2k_bale_collection"
+  ]
 }

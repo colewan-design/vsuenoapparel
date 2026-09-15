@@ -45,6 +45,7 @@
         "hero_button_label": "Shop the drop",
         "hero_button_link": "shopify://collections/all",
         "collection": "all",
+        "product_tag": "solo",
         "products_pretitle": "Fresh finds, timeless style",
         "products_heading": "Latest Drop",
         "products_link_label": "Shop all",
