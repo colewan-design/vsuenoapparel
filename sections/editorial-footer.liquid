@@ -179,6 +179,17 @@
     color: inherit;
   }
 
+  /* Between the phone and desktop breakpoints the rigid column minimums
+     (15rem + 3 x 8rem + three 5vw gaps) add up to more than the container, so
+     the social column pushed ~2px past the viewport and put a horizontal
+     scrollbar on every page. Let the columns shrink instead. */
+  @media screen and (min-width: 750px) and (max-width: 989px) {
+    .editorial-footer__inner {
+      grid-template-columns: minmax(0, 1.5fr) repeat(3, minmax(0, 0.65fr));
+      gap: clamp(1.5rem, 3.5vw, 3rem);
+    }
+  }
+
   @media screen and (max-width: 749px) {
     .editorial-footer__inner,
     .editorial-footer__bottom {

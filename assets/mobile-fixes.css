@@ -1,0 +1,94 @@
+/*
+  Mobile refinements for small screens (<= 749px, the theme's own breakpoint).
+
+  Loaded after base.css from snippets/stylesheets.liquid so these rules win on
+  specificity/order without patching theme core files.
+*/
+
+/* -----------------------------------------------------------------------------
+   Product title, tablet range (750-989px)
+
+   The product layout is already two columns here, so the details sit in a
+   roughly half-width column while the h2 preset is still a flat 40px. Track the
+   column width rather than jumping straight to the desktop size.
+   -------------------------------------------------------------------------- */
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  .product-details .text-block.h1 :is(h1, h2, h3, h4, h5, h6),
+  .product-details .text-block.h2 :is(h1, h2, h3, h4, h5, h6) {
+    font-size: clamp(1.75rem, 3.8vw, var(--font-h2--size));
+    line-height: 1.15;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  /* -------------------------------------------------------------------------
+     Product title
+
+     The title text block uses the h2 type preset, which Shopify emits as a flat
+     --font-h2--size: 2.5rem with no responsive clamp (unlike h1, which is
+     already clamp(2.75rem, 7.2vw, 4.5rem)). Long bale titles therefore render
+     at 40px on a 390px viewport, run ~9 lines, and push the price, variant
+     picker and buy button entirely below the fold.
+
+     Scale with the viewport instead, never exceeding the theme's own h2 size.
+     ------------------------------------------------------------------------- */
+  .product-details .text-block.h1 :is(h1, h2, h3, h4, h5, h6),
+  .product-details .text-block.h2 :is(h1, h2, h3, h4, h5, h6) {
+    font-size: clamp(1.5rem, 6.6vw, var(--font-h2--size));
+    line-height: 1.15;
+  }
+
+  /* -------------------------------------------------------------------------
+     Variant option buttons
+
+     Stock pills are `min-width: fit-content; white-space: nowrap` inside a
+     flex-wrap row, so each label takes its own content width. Labels like
+     "100-150 pcs / 20-25 kg" then wrap 2 / 1 / 1 at four different widths and
+     leave a ragged right edge.
+
+     On small screens lay them out as two equal columns and let the label text
+     wrap. Swatch pickers are excluded so colour swatches keep square sizing.
+     ------------------------------------------------------------------------- */
+  .variant-option--buttons:not(:has(.variant-option__button-label--has-swatch)) {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    /* Row 1 is the legend and sizes to its content; the implicit pill rows
+       share one height so a label that wraps to two lines does not leave the
+       rest of the grid short. */
+    grid-template-rows: auto;
+    grid-auto-rows: 1fr;
+  }
+
+  .variant-option--buttons:not(:has(.variant-option__button-label--has-swatch)) legend {
+    grid-column: 1 / -1;
+  }
+
+  .variant-option--buttons:not(:has(.variant-option__button-label--has-swatch))
+    .variant-option__button-label {
+    min-width: 0;
+    padding-inline: var(--padding-sm);
+    white-space: normal;
+  }
+
+  /* base.css sets `text-align: start` on the inner span, so centre it there
+     rather than on the label, and balance the two lines of a wrapped label. */
+  .variant-option--buttons:not(:has(.variant-option__button-label--has-swatch))
+    .variant-option__button-label__text {
+    text-align: center;
+    text-wrap: balance;
+  }
+
+  /* -------------------------------------------------------------------------
+     Announcement bar tap target
+
+     The link inherits the bar's 0.625rem accent type, so its hit area is only
+     ~10px tall. Extend it with padding and pull it back with a matching
+     negative margin, leaving the bar's rendered height unchanged.
+     ------------------------------------------------------------------------- */
+  .announcement-bar__link {
+    display: inline-block;
+    padding-block: 0.75rem;
+    margin-block: -0.75rem;
+  }
+}

@@ -113,9 +113,19 @@
 
   /**
    * Staggered reveal when switching variants. Shares the easing and feel of
-   * smooth-text-animation.css, but rises the whole row rather than splitting
-   * words -- the rows carry bullet lists and wrap over several lines, which a
-   * per-word mask would clip.
+   * smooth-text-animation.css, but works per letter: each character rises out
+   * from behind its own mask, overshoots, and settles, one after the next, so a
+   * label reads as a wave travelling along the word.
+   *
+   * Two layers of stagger compose into one animation-delay:
+   *   row   -- `--vd-index` is set per row by variant-details.js and inherits
+   *            down to the characters, so later rows start later.
+   *   letter-- `--vd-char-index` is set per character when the text is split.
+   *
+   * Only short, plain-text elements are split (see variant-details.js). Rich
+   * `dd` content -- the bullet lists -- would need hundreds of spans and a
+   * multi-second tail, so it keeps the simpler whole-block rise and is selected
+   * here by the absence of the `data-vd-split` marker the splitter leaves.
    *
    * Only applied by variant-details.js on an actual variant change, so the
    * first paint of the page stays still.
@@ -123,13 +133,77 @@
   .variant-details {
     --vd-duration: 620ms;
     --vd-stagger: 55ms;
+    --vd-char-duration: 560ms;
+    --vd-char-stagger: 20ms;
+
+    /* How far the rich-content rise trails its own row label. */
+    --vd-rich-offset: 140ms;
+
+    /* Headroom so the mask clips neither descenders nor the overshoot. */
+    --vd-mask-space: 0.2em;
   }
 
-  .variant-detail--animate .variant-detail__label,
-  .variant-detail--animate .variant-detail__row {
+  /* Keeps line breaks at spaces even though every character is inline-block. */
+  .vd-word {
+    display: inline-block;
+    white-space: nowrap;
+  }
+
+  .vd-char {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: top;
+
+    /* Padding grows the clip box; the negative margin keeps the layout put. */
+    padding-block: var(--vd-mask-space);
+    margin-block: calc(var(--vd-mask-space) * -1);
+  }
+
+  .vd-char__inner {
+    display: inline-block;
+  }
+
+  .variant-detail--animate .vd-char__inner {
+    will-change: transform, opacity;
+    animation: vd-char-rise var(--vd-char-duration) cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: calc(
+      var(--vd-index, 0) * var(--vd-stagger) + var(--vd-char-index, 0) * var(--vd-char-stagger)
+    );
+  }
+
+  /* Rise from behind the mask, overshoot, settle back — the caterpillar kick. */
+  @keyframes vd-char-rise {
+    0% {
+      transform: translateY(110%);
+      opacity: 0;
+    }
+
+    45% {
+      opacity: 1;
+    }
+
+    62% {
+      transform: translateY(-16%);
+    }
+
+    80% {
+      transform: translateY(5%);
+    }
+
+    92% {
+      transform: translateY(-2%);
+    }
+
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .variant-detail--animate .variant-detail__row dd:not([data-vd-split]) {
     will-change: transform, opacity;
     animation: vd-row-rise var(--vd-duration) cubic-bezier(0.22, 1, 0.36, 1) both;
-    animation-delay: calc(var(--vd-index, 0) * var(--vd-stagger));
+    animation-delay: calc(var(--vd-index, 0) * var(--vd-stagger) + var(--vd-rich-offset));
   }
 
   @keyframes vd-row-rise {
@@ -145,8 +219,8 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .variant-detail--animate .variant-detail__label,
-    .variant-detail--animate .variant-detail__row {
+    .variant-detail--animate .vd-char__inner,
+    .variant-detail--animate .variant-detail__row dd:not([data-vd-split]) {
       animation: none;
       opacity: 1;
       transform: none;
