@@ -5,12 +5,16 @@
   the merchant configured under Settings > Shipping and delivery once the customer
   enters an address at checkout, so this row says so up front rather than showing
   a number the cart has no way to know yet.
+
+  @param {string} [section_id] - Passed through to the delivery estimate tooltip, so
+    the cart page and cart drawer produce distinct popover ids.
 {%- enddoc -%}
 
 {%- if settings.show_cart_shipping_fee and settings.cart_shipping_fee_label != blank -%}
   <div class="cart-totals__item cart-totals__shipping-fee">
     <span class="cart-totals__shipping-fee-label cart-primary-typography">
       {{- settings.cart_shipping_fee_label -}}
+      {%- render 'cart-shipping-tooltip', unique_id: section_id -%}
     </span>
     {%- if settings.cart_shipping_fee_value != blank -%}
       <span class="cart-totals__shipping-fee-value cart-secondary-typography">

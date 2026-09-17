@@ -165,6 +165,17 @@
     {% if settings.quick_add or settings.mobile_quick_add %}
       {% render 'quick-add-modal' %}
     {% endif %}
+
+    {%- liquid
+      # The customs/import notice is only relevant on the Y2K bale page.
+      # Add more templates here if the notice should appear elsewhere.
+      assign show_customs_notice = false
+      if template.name == 'collection'
+        assign show_customs_notice = true
+      endif
+    -%}
+
+    {%- if show_customs_notice -%}
     <style>
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Inter:wght@400;500;600&display=swap');
 
@@ -282,5 +293,6 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 </script>
+{%- endif -%}
   </body>
 </html>

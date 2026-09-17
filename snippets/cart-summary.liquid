@@ -226,7 +226,7 @@
     endif
   -%}
 
-  {%- render 'cart-shipping-fee' -%}
+  {%- render 'cart-shipping-fee', section_id: section_id -%}
 
   <div class="cart-totals__container{% if settings.show_installments %} cart-totals__container--has-installments{% endif %}">
     <span

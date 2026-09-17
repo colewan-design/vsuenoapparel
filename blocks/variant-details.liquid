@@ -104,6 +104,36 @@
     margin: 0;
   }
 
+  /**
+   * The stock line is the one row whose value is live data rather than merchant
+   * copy, so it carries the same status colours the product-inventory block uses.
+   * Colour lands on the `dd` so it still applies once variant-details.js splits
+   * the text into per-character spans for the reveal.
+   */
+  .variant-detail__row--stock dd {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .variant-detail__row--stock dd[data-stock-status='low'] {
+    color: var(--color-lowstock);
+  }
+
+  .variant-detail__row--stock dd[data-stock-status='out_of_stock'] {
+    color: var(--color-outofstock);
+  }
+
+  .variant-detail__row--stock dt svg {
+    color: var(--color-instock);
+  }
+
+  .variant-detail__row--stock:has(dd[data-stock-status='low']) dt svg {
+    color: var(--color-lowstock);
+  }
+
+  .variant-detail__row--stock:has(dd[data-stock-status='out_of_stock']) dt svg {
+    color: var(--color-outofstock);
+  }
+
   @media screen and (max-width: 749px) {
     .variant-detail__row {
       grid-template-columns: 1fr;

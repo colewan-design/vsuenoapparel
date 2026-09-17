@@ -1572,6 +1572,29 @@
       },
       {
         "type": "checkbox",
+        "id": "show_cart_shipping_tooltip",
+        "label": "Show delivery estimate tooltip",
+        "info": "Adds an info icon to the shipping fee row that opens your delivery estimates on hover or tap.",
+        "default": true,
+        "visible_if": "{{ settings.show_cart_shipping_fee == true }}"
+      },
+      {
+        "type": "text",
+        "id": "cart_shipping_tooltip_heading",
+        "label": "Delivery estimate heading",
+        "default": "Estimated delivery",
+        "visible_if": "{{ settings.show_cart_shipping_fee == true and settings.show_cart_shipping_tooltip == true }}"
+      },
+      {
+        "type": "richtext",
+        "id": "cart_shipping_tooltip_content",
+        "label": "Delivery estimate details",
+        "info": "Your delivery time ranges. Edit these whenever your courier's estimates change.",
+        "default": "<ul><li>Local orders: 2–4 business days</li><li>Provincial orders: 3–7 business days</li><li>International orders: 7–21 business days</li></ul><p>Estimates begin once your order is dispatched and exclude weekends and holidays.</p>",
+        "visible_if": "{{ settings.show_cart_shipping_fee == true and settings.show_cart_shipping_tooltip == true }}"
+      },
+      {
+        "type": "checkbox",
         "id": "show_installments",
         "label": "t:settings.installments",
         "default": true

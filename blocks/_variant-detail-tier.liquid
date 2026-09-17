@@ -16,6 +16,23 @@
   if tier_value != blank and tier_value == current_value
     assign is_active = true
   endif
+
+  # Live availability for the selected variant. Only the active tier is ever
+  # shown, so this always reads the variant the shopper just clicked.
+  assign stock_count = current_variant.inventory_quantity
+  if current_variant.inventory_management == blank
+    assign stock_status = 'untracked'
+  elsif stock_count > 0
+    if stock_count <= block.settings.low_stock_threshold
+      assign stock_status = 'low'
+    else
+      assign stock_status = 'in_stock'
+    endif
+  elsif current_variant.inventory_policy == 'continue'
+    assign stock_status = 'backorder'
+  else
+    assign stock_status = 'out_of_stock'
+  endif
 %}
 
 <div
@@ -29,6 +46,25 @@
   {% endif %}
 
   <dl class="variant-detail__rows">
+    {% if block.settings.show_stock %}
+      <div class="variant-detail__row variant-detail__row--stock">
+        <dt>{{ 'icon-available.svg' | inline_asset_content }}<span>Availability</span></dt>
+        <dd data-stock-status="{{ stock_status }}">
+          {%- case stock_status -%}
+            {%- when 'untracked' -%}
+              In stock
+            {%- when 'low' -%}
+              Only {{ stock_count }} left in stock
+            {%- when 'backorder' -%}
+              Available to order
+            {%- when 'out_of_stock' -%}
+              Sold out
+            {%- else -%}
+              {{ stock_count }} in stock
+          {%- endcase -%}
+        </dd>
+      </div>
+    {% endif %}
     {% if block.settings.pieces != blank %}
       <div class="variant-detail__row">
         <dt>{{ 'icon-inventory.svg' | inline_asset_content }}<span>Pieces</span></dt>
@@ -74,6 +110,23 @@
       "info": "Must match the variant option value exactly, e.g. 30–45 pcs / 10–11 kg."
     },
     { "type": "text", "id": "label", "label": "Tier label" },
+    {
+      "type": "checkbox",
+      "id": "show_stock",
+      "label": "Show stock count",
+      "info": "Shows the live inventory of the selected variant.",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "low_stock_threshold",
+      "label": "Low stock threshold",
+      "info": "At or below this count the stock line switches to the low stock wording.",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "default": 10
+    },
     { "type": "text", "id": "pieces", "label": "Pieces" },
     { "type": "text", "id": "weight", "label": "Weight" },
     { "type": "text", "id": "best_for", "label": "Best for" },

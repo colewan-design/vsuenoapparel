@@ -1,0 +1,198 @@
+{%- doc -%}
+  Renders the info trigger and hover popover that explains delivery timing on the
+  cart shipping fee row.
+
+  The copy is merchant-owned: heading and body both come from theme settings
+  (Theme settings > Cart), so delivery estimate ranges can be updated without a
+  code change. Nothing here is calculated — Shopify only knows real transit times
+  once an address is entered at checkout.
+
+  @param {string} [unique_id] - Suffix for the popover id, so the cart page and the
+    cart drawer can both be in the DOM without colliding.
+
+  @example
+  {% render 'cart-shipping-tooltip', unique_id: section_id %}
+{%- enddoc -%}
+
+{%- liquid
+  assign unique_id = unique_id | default: 'cart'
+  assign heading = settings.cart_shipping_tooltip_heading
+  assign content = settings.cart_shipping_tooltip_content
+  assign has_content = false
+  if heading != blank or content != blank
+    assign has_content = true
+  endif
+-%}
+
+{%- if settings.show_cart_shipping_tooltip and has_content -%}
+  {%- liquid
+    assign popover_id = 'CartShippingTooltip-' | append: unique_id
+    assign anchor_name = '--cart-shipping-tooltip-trigger-' | append: unique_id
+  -%}
+
+  <anchored-popover-component
+    class="cart-shipping-tooltip"
+    data-hover-triggered="true"
+    data-close-on-resize
+  >
+    <button
+      type="button"
+      class="cart-shipping-tooltip__button button-unstyled"
+      aria-label="{{ 'accessibility.shipping_delivery_estimate' | t }}"
+      ref="trigger"
+      popovertarget="{{ popover_id }}"
+      style="anchor-name: {{ anchor_name }};"
+    >
+      <span class="svg-wrapper">{{- 'icon-info.svg' | inline_asset_content -}}</span>
+    </button>
+
+    <div
+      id="{{ popover_id }}"
+      class="cart-shipping-tooltip__popover color-custom-popover"
+      ref="popover"
+      popover="auto"
+      role="tooltip"
+      style="position-anchor: {{ anchor_name }};"
+    >
+      {%- if heading != blank -%}
+        <p class="cart-shipping-tooltip__heading">{{ heading | escape }}</p>
+      {%- endif -%}
+      {%- if content != blank -%}
+        <div class="cart-shipping-tooltip__body rte">{{ content }}</div>
+      {%- endif -%}
+    </div>
+  </anchored-popover-component>
+{%- endif -%}
+
+{% stylesheet %}
+  .cart-shipping-tooltip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1em;
+    height: 1em;
+    flex-shrink: 0;
+    /* Centres the icon on the first line of a label that wraps to two. */
+    margin-block-start: calc((1lh - 1em) / 2);
+    vertical-align: text-top;
+  }
+
+  .cart-shipping-tooltip__button {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    color: var(--color-foreground-secondary);
+    line-height: 1;
+    transition: color var(--animation-speed) var(--animation-easing);
+    cursor: pointer;
+  }
+
+  /* Grows the tap target to the accessible minimum without shifting the icon. */
+  .cart-shipping-tooltip__button::before {
+    content: '';
+    position: absolute;
+    inset: calc((1em - var(--minimum-touch-target)) / 2);
+  }
+
+  .cart-shipping-tooltip__button:hover,
+  .cart-shipping-tooltip__button[data-hover-active] {
+    color: var(--color-foreground);
+  }
+
+  .cart-shipping-tooltip__button .svg-wrapper,
+  .cart-shipping-tooltip__button .svg-wrapper > svg {
+    width: 1em;
+    height: 1em;
+  }
+
+  .cart-shipping-tooltip__popover {
+    --cart-shipping-tooltip-max-width: 290px;
+    --cart-shipping-tooltip-spacing: 8px;
+    --cart-shipping-tooltip-viewport-margin: 16px;
+    --cart-shipping-tooltip-native-top: calc(anchor(bottom) + var(--cart-shipping-tooltip-spacing));
+    --cart-shipping-tooltip-fixed-top: calc(
+      (var(--anchor-top) + var(--anchor-height)) * 1px + var(--cart-shipping-tooltip-spacing)
+    );
+
+    inset: unset;
+    top: var(--cart-shipping-tooltip-native-top);
+
+    /* Clamped so a trigger near the right edge cannot push the panel offscreen. */
+    left: max(
+      var(--cart-shipping-tooltip-viewport-margin),
+      min(
+        anchor(left),
+        calc(100vw - var(--cart-shipping-tooltip-max-width) - var(--cart-shipping-tooltip-viewport-margin))
+      )
+    );
+    min-inline-size: 240px;
+    max-inline-size: var(--cart-shipping-tooltip-max-width);
+    padding: var(--padding-md);
+    margin: 0;
+    color: var(--color-foreground);
+    background: var(--color-background);
+    border: var(--style-border-popover);
+    border-radius: var(--style-border-radius-popover, 0);
+    box-shadow: var(--shadow-popover);
+    opacity: 0;
+    transition-property: display, opacity, translate;
+    transition-duration: 0.3s;
+    transition-timing-function: var(--ease-out-quad);
+    transition-behavior: allow-discrete;
+    translate: 0 20px;
+  }
+
+  /* Safari and older Chromium: the component inlines the trigger rect instead. */
+  @supports not (position-anchor: --cart-shipping-tooltip-trigger) {
+    .cart-shipping-tooltip__popover {
+      position: fixed;
+      top: var(--cart-shipping-tooltip-fixed-top);
+      left: max(
+        var(--cart-shipping-tooltip-viewport-margin),
+        min(
+          calc(var(--anchor-left) * 1px),
+          calc(100vw - var(--cart-shipping-tooltip-max-width) - var(--cart-shipping-tooltip-viewport-margin))
+        )
+      );
+    }
+  }
+
+  .cart-shipping-tooltip__popover:popover-open {
+    opacity: 1;
+    translate: 0 0;
+  }
+
+  .cart-shipping-tooltip__heading {
+    margin: 0 0 var(--padding-xs);
+    font-size: var(--font-size--sm);
+    font-weight: 700;
+    line-height: var(--line-height--body-tight);
+  }
+
+  .cart-shipping-tooltip__body {
+    font-size: var(--font-size--sm);
+    line-height: 1.4;
+    overflow-wrap: break-word;
+  }
+
+  .cart-shipping-tooltip__body > :first-child {
+    margin-block-start: 0;
+  }
+
+  .cart-shipping-tooltip__body > :last-child {
+    margin-block-end: 0;
+  }
+
+  .cart-shipping-tooltip__body ul,
+  .cart-shipping-tooltip__body ol {
+    padding-inline-start: 1.1em;
+    margin-block: 0;
+  }
+
+  .cart-shipping-tooltip__body li + li {
+    margin-block-start: 2px;
+  }
+{% endstylesheet %}
