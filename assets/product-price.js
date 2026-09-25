@@ -53,7 +53,12 @@ class ProductPrice extends Component {
 
         const { priceContainer, volumePricingNote } = this.refs;
         // Find the new product-price element in the updated HTML
-        const newProductPrice = html.querySelector(`product-price[data-block-id="${this.dataset.blockId}"]`);
+        // Blocks rendered outside the product template (e.g. the bale landing on a
+        // collection page) get a different block id than the product page the
+        // variant picker fetches, so fall back to the same product's price.
+        const newProductPrice =
+          html.querySelector(`product-price[data-block-id="${this.dataset.blockId}"]`) ??
+          html.querySelector(`product-price[data-product-id="${this.dataset.productId}"]`);
         if (!newProductPrice) return;
 
         // Update price container
