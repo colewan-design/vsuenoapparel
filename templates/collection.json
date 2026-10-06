@@ -399,42 +399,6 @@
     "y2k_bale_collection": {
       "type": "y2k-bale-collection",
       "blocks": {
-        "category_hoodies": {
-          "type": "category",
-          "settings": {
-            "label": "Vintage hoodies"
-          }
-        },
-        "category_bottoms": {
-          "type": "category",
-          "settings": {
-            "label": "Low-rise bottoms"
-          }
-        },
-        "category_henleys": {
-          "type": "category",
-          "settings": {
-            "label": "Henleys"
-          }
-        },
-        "category_camis": {
-          "type": "category",
-          "settings": {
-            "label": "Camis"
-          }
-        },
-        "category_velour": {
-          "type": "category",
-          "settings": {
-            "label": "Velour track pants"
-          }
-        },
-        "category_jackets": {
-          "type": "category",
-          "settings": {
-            "label": "Vintage jackets"
-          }
-        },
         "faq_condition": {
           "type": "faq",
           "settings": {
@@ -458,12 +422,6 @@
         }
       },
       "block_order": [
-        "category_hoodies",
-        "category_bottoms",
-        "category_henleys",
-        "category_camis",
-        "category_velour",
-        "category_jackets",
         "faq_condition",
         "faq_brands",
         "faq_shipping"
@@ -485,7 +443,7 @@
         "price_heading": "$199 per bale",
         "price_subline": "30–45 authentic branded pieces",
         "quote_button_label": "Request shipping quote",
-        "products_heading": "Featured pieces",
+        "products_heading": "",
         "product_tag": "bale",
         "faq_heading": "Frequently asked questions",
         "faq_intro": "Still have questions? We’ve got you."
