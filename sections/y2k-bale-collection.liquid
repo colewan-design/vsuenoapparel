@@ -152,23 +152,7 @@
             <button class="bale-button bale-button--light" type="submit">Order now</button>
           {% endform %}
         {% else %}
-          <details class="bale-quote" id="BaleQuote-{{ section.id }}">
-            <summary class="bale-button bale-button--light">
-              <span>{{ section.settings.quote_button_label | escape }}</span>
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M14 7l5 5-5 5"/></svg>
-            </summary>
-            <div class="bale-quote__panel">
-              {% form 'contact', class: 'bale-quote__form' %}
-                <input type="hidden" name="contact[request]" value="Y2K bale shipping quote">
-                <div class="bale-quote__field"><label for="BaleQuoteName-{{ section.id }}">Name</label><input id="BaleQuoteName-{{ section.id }}" name="contact[name]" type="text" required></div>
-                <div class="bale-quote__field"><label for="BaleQuoteEmail-{{ section.id }}">Email</label><input id="BaleQuoteEmail-{{ section.id }}" name="contact[email]" type="email" required></div>
-                <div class="bale-quote__field"><label for="BaleQuoteCountry-{{ section.id }}">Country</label><input id="BaleQuoteCountry-{{ section.id }}" name="contact[country]" type="text" required></div>
-                <div class="bale-quote__field"><label for="BaleQuoteCity-{{ section.id }}">City</label><input id="BaleQuoteCity-{{ section.id }}" name="contact[city]" type="text" required></div>
-                <div class="bale-quote__field"><label for="BaleQuotePostal-{{ section.id }}">Postal code</label><input id="BaleQuotePostal-{{ section.id }}" name="contact[postal_code]" type="text" required></div>
-                <button type="submit">Send quote request</button>
-                {% if form.posted_successfully? %}<p class="bale-quote__message">Thanks. We’ll send your shipping quote shortly.</p>{% endif %}
-                {% if form.errors %}<div class="bale-quote__message">{{ form.errors | default_errors }}</div>{% endif %}
-              {% endform %}
+          
             </div>
           </details>
         {% endif %}
