@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
@@ -82,7 +91,7 @@
               "type": "text",
               "name": "t:names.title",
               "settings": {
-                "text": "<h1>{{ closest.product.title }}</h1>",
+                "text": "<p><strong>BEST-SELLING (ABH-Y2K-MIX) \"LIMITED STOCKS ONLY!!\"&nbsp;</strong></p>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -159,6 +168,80 @@
                 "padding-inline-end": 0
               },
               "blocks": {}
+            },
+            "variant_details": {
+              "type": "variant-details",
+              "settings": {
+                "heading": "Variant details"
+              },
+              "blocks": {
+                "tier_starter": {
+                  "type": "_variant-detail-tier",
+                  "settings": {
+                    "variant_value": "30–45 pcs / 10–11 kg",
+                    "label": "Starter bundle",
+                    "show_stock": true,
+                    "low_stock_threshold": 10,
+                    "pieces": "Approximately 30–45 pieces",
+                    "weight": "Estimated 10–11 kg",
+                    "best_for": "New resellers or first-time bale buyers",
+                    "included": "<ul><li>A curated starter mix of authentic Y2K pieces</li><li>Tops, bottoms, outerwear, and more</li><li>Brands may include Hollister, Abercrombie &amp; Fitch, American Eagle, Aeropostale, PINK, Victoria's Secret, Juicy Couture, ROXY, Bebe, and more</li><li>A wide variety of styles, colors, and sizes</li></ul>",
+                    "good_to_know": "<p>Every bale is uniquely assorted — exact pieces, brands, colors, and quantities are not guaranteed, but every item is authentic branded vintage. Shipping is calculated by the courier at checkout based on your destination and order weight.</p>"
+                  },
+                  "blocks": {}
+                },
+                "tier_standard": {
+                  "type": "_variant-detail-tier",
+                  "settings": {
+                    "variant_value": "50–80 pcs / 14–16 kg",
+                    "label": "Standard bundle",
+                    "show_stock": true,
+                    "low_stock_threshold": 10,
+                    "pieces": "Approximately 50–80 pieces",
+                    "weight": "Estimated 14–16 kg",
+                    "best_for": "Sellers restocking a growing shop",
+                    "included": "<p><strong>You can expect sought-after vintage pieces such as:</strong></p><p>·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/><strong>Vintage low-rise shorts</strong></p><p>·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/><strong>Fold over pants</strong></p><p>·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/><strong>Henleys</strong></p><p>·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/><strong>Vintage jackets</strong></p><p>·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/><strong>Camis</strong></p><p>·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/><strong>Velour track pants</strong></p><p>·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/><strong>And many other authentic Y2K staples</strong></p>",
+                    "good_to_know": "<p><strong>BEST-SELLING ABH-Y2K-MIX (MEGA bale) contains<br/>approximately 50–80 authentic branded Y2K vintage pieces, with an approximate<br/>bale weight of 14-16 KG.</strong></p><p><strong>Each bale is a unique assortment and may include brands<br/>such as vintage Hollister, Abercrombie & Fitch, American Eagle,<br/>Aeropostale, PINK, Victoria's Secret, Juicy Couture, ROXY, BEBE, and more.<br/>(Each bale is unique, so specific brands, colors, and<br/>quantities may vary.)</strong></p>"
+                  },
+                  "blocks": {}
+                },
+                "tier_large": {
+                  "type": "_variant-detail-tier",
+                  "settings": {
+                    "variant_value": "80–110 pcs / 17–19 kg",
+                    "label": "Large bundle",
+                    "show_stock": true,
+                    "low_stock_threshold": 10,
+                    "pieces": "Approximately 80–110 pieces",
+                    "weight": "Estimated 17–19 kg",
+                    "best_for": "",
+                    "included": "<p><strong>You can expect sought-after vintage pieces such as:</strong></p><p>·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/><strong>Vintage low-rise shorts</strong></p><p>·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/><strong>Fold over pants</strong></p><p>·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/><strong>Henleys</strong></p><p>·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/><strong>Vintage jackets</strong></p><p>·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/><strong>Camis</strong></p><p>·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/><strong>Velour track pants</strong></p><p>·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/><strong>And many other authentic Y2K staples</strong></p>",
+                    "good_to_know": "<p><strong>BEST-SELLING ABH-Y2K-MIX (SUPER bale) contains<br/>approximately 80–110 authentic branded Y2K vintage pieces, with an approximate<br/>bale weight of 17-19 KG.</strong></p><p><strong>Each bale is a unique assortment and may include brands<br/>such as vintage Hollister, Abercrombie & Fitch, American Eagle,<br/>Aeropostale, PINK, Victoria's Secret, Juicy Couture, ROXY, BEBE, and more.</strong></p><p><strong>(Each bale is unique, so specific brands, colors, and<br/>quantities may vary.)</strong></p>"
+                  },
+                  "blocks": {}
+                },
+                "tier_studio": {
+                  "type": "_variant-detail-tier",
+                  "settings": {
+                    "variant_value": "100–150 pcs / 20–25 kg",
+                    "label": "Studio bundle",
+                    "show_stock": true,
+                    "low_stock_threshold": 10,
+                    "pieces": "Approximately 100–150 pieces",
+                    "weight": "Estimated 20–25 kg",
+                    "best_for": "",
+                    "included": "<p><strong>You can expect sought-after vintage pieces such as:</strong></p><p>·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/><strong>Vintage low-rise shorts</strong></p><p>·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/><strong>Fold over pants</strong></p><p>·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/><strong>Henleys</strong></p><p>·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/><strong>Vintage jackets</strong></p><p>·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/><strong>Camis</strong></p><p>·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/><strong>Velour track pants</strong></p><p>·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/><strong>And many other authentic Y2K staples</strong></p>",
+                    "good_to_know": "<p><strong>BEST-SELLING ABH-Y2K-MIX (EN GRANDE bale) contains<br/>approximately 100–150 authentic branded Y2K vintage pieces, with an approximate<br/>bale weight of 20-25 KG.</strong></p><p><strong>Each bale is a unique assortment and may include brands<br/>such as vintage Hollister, Abercrombie & Fitch, American Eagle,<br/>Aeropostale, PINK, Victoria's Secret, Juicy Couture, ROXY, BEBE, and more.</strong></p><p><strong>(Each bale is unique, so specific brands, colors, and<br/>quantities may vary.)</strong></p>"
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "tier_starter",
+                "tier_standard",
+                "tier_large",
+                "tier_studio"
+              ]
             },
             "buy_buttons_eYQEYi": {
               "type": "buy-buttons",
@@ -285,68 +368,6 @@
               "block_order": [
                 "accordion_row_P46NdC"
               ]
-            },
-            "variant_details": {
-              "type": "variant-details",
-              "blocks": {
-                "tier_starter": {
-                  "type": "_variant-detail-tier",
-                  "settings": {
-                    "variant_value": "30–45 pcs / 10–11 kg",
-                    "label": "Starter bundle",
-                    "pieces": "Approximately 30–45 pieces",
-                    "weight": "Estimated 10–11 kg",
-                    "best_for": "New resellers or first-time bale buyers",
-                    "included": "<ul><li>A curated starter mix of authentic Y2K pieces</li><li>Tops, bottoms, outerwear, and more</li><li>Brands may include Hollister, Abercrombie &amp; Fitch, American Eagle, Aeropostale, PINK, Victoria's Secret, Juicy Couture, ROXY, Bebe, and more</li><li>A wide variety of styles, colors, and sizes</li></ul>",
-                    "good_to_know": "<p>Every bale is uniquely assorted — exact pieces, brands, colors, and quantities are not guaranteed, but every item is authentic branded vintage. Shipping is calculated by the courier at checkout based on your destination and order weight.</p>"
-                  }
-                },
-                "tier_standard": {
-                  "type": "_variant-detail-tier",
-                  "settings": {
-                    "variant_value": "50–80 pcs / 14–16 kg",
-                    "label": "Standard bundle",
-                    "pieces": "Approximately 50–80 pieces",
-                    "weight": "Estimated 14–16 kg",
-                    "best_for": "Sellers restocking a growing shop",
-                    "included": "<ul><li>A larger curated mix of authentic Y2K pieces</li><li>Tops, bottoms, outerwear, and more</li><li>Brands may include Hollister, Abercrombie &amp; Fitch, American Eagle, Aeropostale, PINK, Victoria's Secret, Juicy Couture, ROXY, Bebe, and more</li><li>A wide variety of styles, colors, and sizes</li></ul>",
-                    "good_to_know": "<p>Every bale is uniquely assorted — exact pieces, brands, colors, and quantities are not guaranteed, but every item is authentic branded vintage. Shipping is calculated by the courier at checkout based on your destination and order weight.</p>"
-                  }
-                },
-                "tier_large": {
-                  "type": "_variant-detail-tier",
-                  "settings": {
-                    "variant_value": "80–110 pcs / 17–19 kg",
-                    "label": "Large bundle",
-                    "pieces": "Approximately 80–110 pieces",
-                    "weight": "Estimated 17–19 kg",
-                    "best_for": "Established resellers buying in volume",
-                    "included": "<ul><li>A high-volume mix of authentic Y2K pieces</li><li>Tops, bottoms, outerwear, and more</li><li>Brands may include Hollister, Abercrombie &amp; Fitch, American Eagle, Aeropostale, PINK, Victoria's Secret, Juicy Couture, ROXY, Bebe, and more</li><li>A wide variety of styles, colors, and sizes</li></ul>",
-                    "good_to_know": "<p>Every bale is uniquely assorted — exact pieces, brands, colors, and quantities are not guaranteed, but every item is authentic branded vintage. Shipping is calculated by the courier at checkout based on your destination and order weight.</p>"
-                  }
-                },
-                "tier_studio": {
-                  "type": "_variant-detail-tier",
-                  "settings": {
-                    "variant_value": "100–150 pcs / 20–25 kg",
-                    "label": "Studio bundle",
-                    "pieces": "Approximately 100–150 pieces",
-                    "weight": "Estimated 20–25 kg",
-                    "best_for": "Studios and stores stocking a full rack",
-                    "included": "<ul><li>Our largest curated mix of authentic Y2K pieces</li><li>Tops, bottoms, outerwear, and more</li><li>Brands may include Hollister, Abercrombie &amp; Fitch, American Eagle, Aeropostale, PINK, Victoria's Secret, Juicy Couture, ROXY, Bebe, and more</li><li>A wide variety of styles, colors, and sizes</li></ul>",
-                    "good_to_know": "<p>Every bale is uniquely assorted — exact pieces, brands, colors, and quantities are not guaranteed, but every item is authentic branded vintage. Shipping is calculated by the courier at checkout based on your destination and order weight.</p>"
-                  }
-                }
-              },
-              "block_order": [
-                "tier_starter",
-                "tier_standard",
-                "tier_large",
-                "tier_studio"
-              ],
-              "settings": {
-                "heading": "Variant details"
-              }
             }
           },
           "block_order": [
@@ -559,129 +580,10 @@
         "padding-block-start": 48,
         "padding-block-end": 48
       }
-    },
-    "product_options_reviews": {
-      "type": "product-options-reviews",
-      "blocks": {
-        "option_starter": {
-          "type": "option",
-          "settings": {
-            "badge": "Best seller",
-            "title": "Starter bundle",
-            "price": "$199",
-            "pieces": "30–45 pcs",
-            "weight": "10–11 kg",
-            "detail_heading": "What is included",
-            "detail": "A focused starter mix with approximately 30–45 pieces, packed into an estimated 10–11 kg bundle.",
-            "link": "",
-            "link_label": "Choose this option"
-          }
-        },
-        "option_standard": {
-          "type": "option",
-          "settings": {
-            "badge": "",
-            "title": "Standard bundle",
-            "price": "$259",
-            "pieces": "50–80 pcs",
-            "weight": "13–16 kg",
-            "detail_heading": "What is included",
-            "detail": "A broader standard mix with approximately 50–80 pieces, packed into an estimated 13–16 kg bundle.",
-            "link": "",
-            "link_label": "Choose this option"
-          }
-        },
-        "option_large": {
-          "type": "option",
-          "settings": {
-            "badge": "",
-            "title": "Large bundle",
-            "price": "$299",
-            "pieces": "85–110 pcs",
-            "weight": "17–19 kg",
-            "detail_heading": "What is included",
-            "detail": "A high-volume large mix with approximately 85–110 pieces, packed into an estimated 17–19 kg bundle.",
-            "link": "",
-            "link_label": "Choose this option"
-          }
-        },
-        "option_studio": {
-          "type": "option",
-          "settings": {
-            "badge": "",
-            "title": "Studio bundle",
-            "price": "$389",
-            "pieces": "100–150 pcs",
-            "weight": "20–25 kg",
-            "detail_heading": "What is included",
-            "detail": "Our largest studio-ready mix with approximately 100–150 pieces, packed into an estimated 20–25 kg bundle.",
-            "link": "",
-            "link_label": "Choose this option"
-          }
-        },
-        "review_one": {
-          "type": "review",
-          "settings": {
-            "video": "",
-            "external_video": "",
-            "cover_image": "",
-            "video_alt": "Customer review video",
-            "rating": 5,
-            "quote": "",
-            "customer_name": ""
-          }
-        },
-        "review_two": {
-          "type": "review",
-          "settings": {
-            "video": "",
-            "external_video": "",
-            "cover_image": "",
-            "video_alt": "Customer review video",
-            "rating": 5,
-            "quote": "",
-            "customer_name": ""
-          }
-        },
-        "review_three": {
-          "type": "review",
-          "settings": {
-            "video": "",
-            "external_video": "",
-            "cover_image": "",
-            "video_alt": "Customer review video",
-            "rating": 5,
-            "quote": "",
-            "customer_name": ""
-          }
-        }
-      },
-      "block_order": [
-        "option_starter",
-        "option_standard",
-        "option_large",
-        "option_studio",
-        "review_one",
-        "review_two",
-        "review_three"
-      ],
-      "settings": {
-        "eyebrow": "Limited stock",
-        "heading": "Find your perfect bundle",
-        "intro": "<p>Select an option to see its full details. Link each option to the matching product variant when it is ready to sell.</p>",
-        "reviews_eyebrow": "Worn by you",
-        "reviews_heading": "Customer reviews",
-        "background_color": "#F7F4F1",
-        "text_color": "#332D2A",
-        "accent_color": "#7D5449",
-        "padding_top": 96,
-        "padding_bottom": 96
-      }
     }
   },
   "order": [
     "main",
-    "product_recommendations_xmXAhw",
-    "product_options_reviews"
+    "product_recommendations_xmXAhw"
   ]
 }
