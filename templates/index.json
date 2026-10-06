@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "y2k_editorial_home": {
@@ -26,19 +35,14 @@
             "heading": "Worldwide shipping",
             "text": "Vintage finds, everywhere."
           }
-        },
-        "trust_curated": {
-          "type": "trust_item",
-          "settings": {
-            "icon": "heart",
-            "heading": "Curated drops",
-            "text": "Handpicked with love."
-          }
         }
       },
-      "block_order": ["trust_authenticated", "trust_limited", "trust_shipping", "trust_curated"],
+      "block_order": [
+        "trust_authenticated",
+        "trust_limited",
+        "trust_shipping"
+      ],
       "settings": {
-        "hero_image": "",
         "hero_pretitle": "Timeless pieces. A brighter tomorrow.",
         "hero_heading": "Authentic Y2K\nvintage drops",
         "hero_text": "Curated, authentic, high-demand Y2K pieces for a more stylish tomorrow.",
@@ -52,7 +56,7 @@
         "bale_image": "shopify://shop_images/IMG_7152_44c08e06-3e8a-41bf-9c7e-2393c4abc351.jpg",
         "bale_pretitle": "Our bestseller",
         "bale_heading": "The Y2K Bale",
-        "bale_text": "<p>Authentic, high-demand Y2K pieces handpicked for your next vintage drop. Limited quantities—secure yours before they’re gone.</p>",
+        "bale_text": "<p>Authentic, high-demand Y2K pieces &nbsp;for your next vintage drop. Limited quantities—secure yours before they’re gone.</p>",
         "bale_button_label": "Shop the Y2K Bale",
         "bale_button_link": "shopify://collections/all",
         "newsletter_pretitle": "Stay in the loop",
@@ -62,5 +66,7 @@
       }
     }
   },
-  "order": ["y2k_editorial_home"]
+  "order": [
+    "y2k_editorial_home"
+  ]
 }
