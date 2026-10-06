@@ -435,13 +435,6 @@
             "label": "Vintage jackets"
           }
         },
-        "faq_authentic": {
-          "type": "faq",
-          "settings": {
-            "question": "Are the pieces authentic?",
-            "answer": "<p>Yes. Every item is authentic branded vintage sourced by our team.</p>"
-          }
-        },
         "faq_condition": {
           "type": "faq",
           "settings": {
@@ -460,21 +453,7 @@
           "type": "faq",
           "settings": {
             "question": "How much is shipping?",
-            "answer": "<p>Shipping is calculated separately using the destination and final package weight. Submit the quote form for an accurate amount.</p>"
-          }
-        },
-        "faq_choice": {
-          "type": "faq",
-          "settings": {
-            "question": "Can I choose specific items?",
-            "answer": "<p>Each bale is a unique curated assortment, so specific brands, colors, styles, or quantities cannot be guaranteed.</p>"
-          }
-        },
-        "faq_returns": {
-          "type": "faq",
-          "settings": {
-            "question": "Do you accept returns?",
-            "answer": "<p>Please review the store return policy before ordering. Contact us before purchase if you need help confirming suitability.</p>"
+            "answer": "<p>Shipping is calculated automatically at checkout. Simply enter your shipping details, and the courier will provide the shipping rate based on your destination and the weight of your selected bale.<br/><br/></p>"
           }
         }
       },
@@ -485,12 +464,9 @@
         "category_camis",
         "category_velour",
         "category_jackets",
-        "faq_authentic",
         "faq_condition",
         "faq_brands",
-        "faq_shipping",
-        "faq_choice",
-        "faq_returns"
+        "faq_shipping"
       ],
       "settings": {
         "hero_kicker": "Best-selling ABH-Y2K-Mix bale",
@@ -499,14 +475,14 @@
         "hero_primary_label": "Shop the bale",
         "hero_secondary_label": "How it works",
         "hero_brands": "Abercrombie · Hollister · Juicy Couture · Aeropostale · Victoria’s Secret · Roxy",
-        "hero_included": "<ul><li>Tops, bottoms, outerwear, and more</li><li>Brands may include Hollister, Abercrombie &amp; Fitch, American Eagle, Aeropostale, PINK, Victoria's Secret, Juicy Couture, ROXY, Bebe, and more</li><li>A wide variety of styles, colors, and sizes</li></ul>",
+        "hero_included": "<ul><li>Tops, bottoms, outerwear, and more</li><li>Brands may include Hollister, Abercrombie & Fitch, American Eagle, Aeropostale, PINK, Victoria's Secret, Juicy Couture, ROXY, Bebe, and more</li><li>A wide variety of styles, colors, and sizes</li></ul>",
         "inside_kicker": "What’s inside",
         "inside_heading": "Iconic Y2K pieces",
         "inside_text": "<p>Each bale is a unique mix of authentic Y2K and early-2000s clothing from sought-after brands, with a variety of styles, colors, and sizes.</p>",
         "inside_button_label": "View example pieces",
         "bale_product": "best-selling-abh-y2k-mix-starter-bale-contains-approximately-30-45-authentic-branded-y2k-vintage-pieces-with-an-approximate-bale-weight-of-10-11-kg",
-        "price_kicker": "The Y2K bale",
-        "price_heading": "$200 per bale",
+        "price_kicker": "The Y2K (Starter) bale",
+        "price_heading": "$199 per bale",
         "price_subline": "30–45 authentic branded pieces",
         "quote_button_label": "Request shipping quote",
         "products_heading": "Featured pieces",
