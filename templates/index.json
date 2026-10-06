@@ -43,6 +43,7 @@
         "trust_shipping"
       ],
       "settings": {
+        "hero_image": "shopify://shop_images/download_4.jpg",
         "hero_pretitle": "Timeless pieces. A brighter tomorrow.",
         "hero_heading": "Authentic Y2K\nvintage drops",
         "hero_text": "Curated, authentic, high-demand Y2K pieces for a more stylish tomorrow.",
