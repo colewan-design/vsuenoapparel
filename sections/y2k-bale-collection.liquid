@@ -63,74 +63,7 @@
     </div>
   </section>
 
-  <section class="bale-inside" aria-labelledby="BaleInsideHeading-{{ section.id }}">
-    <div class="bale-shell bale-inside__layout">
-      <div class="bale-inside__copy">
-        <p class="bale-kicker">{{ section.settings.inside_kicker | escape }}</p>
-        <h2 id="BaleInsideHeading-{{ section.id }}">{{ section.settings.inside_heading | escape }}</h2>
-        <div class="rte">{{ section.settings.inside_text }}</div>
-        <a class="bale-button bale-button--secondary" href="#BaleProducts-{{ section.id }}">
-          <span>{{ section.settings.inside_button_label | escape }}</span>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M14 7l5 5-5 5"/></svg>
-        </a>
-      </div>
-      {%- if inside_pool > 0 or inside_manual > 0 -%}
-      <div class="bale-categories" aria-label="Example categories">
-        {% for block in category_blocks %}
-          {% liquid
-            assign category_image = block.settings.image
-            if category_image == blank and inside_pool > 0
-              # forloop here is still the category-block loop; capture it before
-              # the nested product/image loops shadow it.
-              assign tile_target = forloop.index0
-              assign tile_cursor = 0
-              for tile_product in collection.products
-                assign tile_match = false
-                if inside_tag == blank
-                  assign tile_match = true
-                else
-                  for tile_candidate in tile_product.tags
-                    assign tile_key = tile_candidate | downcase
-                    if tile_key == inside_tag
-                      assign tile_match = true
-                      break
-                    endif
-                  endfor
-                endif
-                if tile_match and tile_product.id == main_bale_id
-                  assign tile_match = false
-                endif
-                if tile_match
-                  for tile_image in tile_product.images
-                    if tile_cursor == tile_target
-                      assign category_image = tile_image
-                    endif
-                    assign tile_cursor = tile_cursor | plus: 1
-                  endfor
-                endif
-              endfor
-            endif
-          %}
-          {%- comment -%}
-            Only as many tiles as there are distinct bale images: repeating one
-            photo across six cards reads as a bug, not a category grid.
-          {%- endcomment -%}
-          {%- if category_image == blank -%}{%- continue -%}{%- endif -%}
-          <article class="bale-category" {{ block.shopify_attributes }}>
-            <div class="bale-category__media">
-              {% if category_image != blank %}
-                {{ category_image | image_url: width: 640 | image_tag: widths: '220, 360, 480, 640', loading: 'lazy', class: 'bale-category__image' }}
-              {% else %}
-                {{ 'product-apparel-1' | placeholder_svg_tag: 'bale-category__image bale-placeholder' }}
-              {% endif %}
-            </div>
-            <h3>{{ block.settings.label | escape }}</h3>
-          </article>
-        {% endfor %}
-      </div>
-      {%- endif -%}
-    </div>
-  </section>
+  
 
   <section class="bale-order" id="BaleOrder-{{ section.id }}" aria-labelledby="BaleOrderHeading-{{ section.id }}">
     <div class="bale-order__price">
