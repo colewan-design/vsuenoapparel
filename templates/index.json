@@ -12,6 +12,14 @@
     "y2k_editorial_home": {
       "type": "y2k-editorial-home",
       "blocks": {
+        "trust_item_AAUEHm": {
+          "type": "trust_item",
+          "settings": {
+            "icon": "diamond",
+            "heading": "Authenticated pieces",
+            "text": "Real pieces. Real brands. No replicas."
+          }
+        },
         "trust_authenticated": {
           "type": "trust_item",
           "settings": {
@@ -38,6 +46,7 @@
         }
       },
       "block_order": [
+        "trust_item_AAUEHm",
         "trust_authenticated",
         "trust_limited",
         "trust_shipping"
