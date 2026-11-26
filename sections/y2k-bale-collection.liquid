@@ -68,14 +68,7 @@
   <section class="bale-order" id="BaleOrder-{{ section.id }}" aria-labelledby="BaleOrderHeading-{{ section.id }}">
     <div class="bale-order__price">
       <div class="bale-order__price-inner">
-        <p class="bale-kicker">{{ section.settings.price_kicker | escape }}</p>
-        <h2 id="BaleOrderHeading-{{ section.id }}">{{ section.settings.price_heading | escape }}</h2>
-        <p class="bale-order__subline">{{ section.settings.price_subline | escape }}</p>
-        <ul>
-          <li>Approximately 30–45 authentic branded Y2K vintage pieces</li>
-          <li>A unique mix of iconic early-2000s brands</li>
-          <li>Shipping quoted separately by destination and final weight</li>
-        </ul>
+       
 
         {% if bale_product != blank and bale_variant != blank and bale_variant.available %}
           {% form 'product', bale_product, class: 'bale-order__product-form' %}

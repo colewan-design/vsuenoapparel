@@ -11,46 +11,6 @@
   "sections": {
     "y2k_editorial_home": {
       "type": "y2k-editorial-home",
-      "blocks": {
-        "trust_item_AAUEHm": {
-          "type": "trust_item",
-          "settings": {
-            "icon": "diamond",
-            "heading": "Authenticated pieces",
-            "text": "Real pieces. Real brands. No replicas."
-          }
-        },
-        "trust_authenticated": {
-          "type": "trust_item",
-          "settings": {
-            "icon": "diamond",
-            "heading": "Authenticated pieces",
-            "text": "Real pieces. Real brands. No replicas."
-          }
-        },
-        "trust_limited": {
-          "type": "trust_item",
-          "settings": {
-            "icon": "tag",
-            "heading": "Limited quantities",
-            "text": "Once it’s gone, it’s gone."
-          }
-        },
-        "trust_shipping": {
-          "type": "trust_item",
-          "settings": {
-            "icon": "globe",
-            "heading": "Worldwide shipping",
-            "text": "Vintage finds, everywhere."
-          }
-        }
-      },
-      "block_order": [
-        "trust_item_AAUEHm",
-        "trust_authenticated",
-        "trust_limited",
-        "trust_shipping"
-      ],
       "settings": {
         "hero_image": "shopify://shop_images/download_4.jpg",
         "hero_pretitle": "Timeless pieces. A brighter tomorrow.",
